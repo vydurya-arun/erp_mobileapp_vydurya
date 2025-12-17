@@ -110,7 +110,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(243,244,246,0.5)", // gray-100/50
+    backgroundColor: "rgba(243,244,246,0.5)",
   },
 
   scrollContent: {
@@ -132,8 +132,8 @@ const styles = StyleSheet.create({
   },
 
   avatarWrapper: {
-    width: 56,
-    height: 56,
+    width: 50,
+    height: 50,
     borderRadius: 28,
     backgroundColor: color.primarylight,
     alignItems: "center",
