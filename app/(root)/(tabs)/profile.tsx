@@ -9,6 +9,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import CardsProfile from '@/components/CardsProfile'
 import PersonCard from '@/components/PersonCard'
+import Header from '@/components/Header'
 
 export type PersonalDataItem = {
   id: number;
@@ -22,10 +23,26 @@ const personalData: PersonalDataItem[] = [
     id: 1, title: 'Email', label: 'arunakhil@gmail.com', icon: 'email'
   },
   {
-    id: 2, title: 'Phone', label: '+91 9895234288', icon: 'phone'
+    id: 2, title: 'Phone', label: '+91-9895234288', icon: 'phone'
   },
   {
-    id: 3, title: 'Employee Id', label: '#AS3468', icon: 'work'
+    id: 3, title: 'Address', label: 'Ithiparambil (H), Kochi, Kerala', icon: 'location-pin'
+  },
+
+]
+
+const workData: PersonalDataItem[] =[
+  {
+    id: 1, title: 'Employee Id', label: '#AS3468', icon: 'badge'
+  },
+  {
+    id: 2, title: 'Work Time', label: '9.00 AM - 5.00 PM', icon: 'access-time-filled'
+  },
+  {
+    id: 3, title: 'Department', label: 'Software', icon: 'groups'
+  },
+    {
+    id: 4, title: 'Experience', label: '2 Years 5 months', icon: 'stars'
   },
 ]
 
@@ -37,7 +54,8 @@ const Profile = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        <Text style={styles.mainHeading}>Profile</Text>
+        <Header title='Profile'/>
+
         <View style={styles.profileMain}>
           <View style={styles.avatarWrapper}>
             <Image
@@ -56,15 +74,19 @@ const Profile = () => {
 
         </View>
         <View style={styles.cardsContainer}>
-          <CardsProfile textColor='#22B3FF' count='98%' title='Attendence' />
-          <CardsProfile textColor='#FFC022' count='5' title='Pending' />
-          <CardsProfile textColor='#ff6422ff' count='12' title='Leave Balance' />
+          <CardsProfile textColor='#22B3FF' count='98%' title='Attendance' />
+          <CardsProfile textColor='#1FC155' count='15' title='Worked' />
+          <CardsProfile textColor='#ff6422ff' count='3' title='Leave' />
 
         </View>
         <View style={styles.personCont}>
           <Text style={styles.profileText2}>PERSONAL INFORMATION</Text>
         </View>
         <PersonCard profile={personalData}/>
+        <View style={styles.personCont}>
+          <Text style={styles.profileText2}>COMPANY INFORMATION</Text>
+        </View>
+        <PersonCard profile={workData}/>
 
         <TouchableOpacity style={styles.logout}>
             <MaterialCommunityIcons name="logout" size={28} color="#C45855" />
@@ -144,6 +166,7 @@ const styles = StyleSheet.create({
   },
   logout:{
     marginBottom:70,
+    marginTop:10,
     maxWidth:(360),
     width:'100%',
     backgroundColor:'#F3DEDD',
@@ -154,6 +177,12 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     gap:10
+  },
+  header:{
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center'
   }
 
 })

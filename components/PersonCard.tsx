@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         gap: 20,
-        marginVertical:15
+        marginVertical:10
     },
     subMain: {
         display: 'flex',

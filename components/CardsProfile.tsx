@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import {scale,verticalScale,moderateScale} from 'react-native-size-matters'
+import { color } from '@/constants/colors'
 
 
 
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
 
   label: {
     fontSize: moderateScale(9),
-    color: '#6C7278',
+    color: color.textColour,
     fontFamily: 'Rubik-SemiBold',
     textTransform:'uppercase'
   },
