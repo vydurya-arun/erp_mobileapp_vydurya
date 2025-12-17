@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import {scale,verticalScale,moderateScale} from 'react-native-size-matters'
-import { color } from '@/constants/colors'
+
 
 
 const CardsProfile = ({count,title,textColor}:{count:string,title:string,textColor:string}) => {
