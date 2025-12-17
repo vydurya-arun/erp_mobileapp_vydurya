@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     gap: 3,
-    padding: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
     marginBottom:70,
     boxShadow:'0 4px 6px -1px rgb(0 0 0 / 0.1)'
   },

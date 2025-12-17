@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
       borderRadius: '50%',
       backgroundColor: color.primarylight,
       alignItems: "center",
+      paddingTop:10
     },
     avatar: {
       width: 95,

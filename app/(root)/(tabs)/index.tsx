@@ -1,5 +1,5 @@
 import { icons } from "@/constants/logo";
-import { ScrollView, Text, View, Image, StyleSheet } from "react-native";
+import { ScrollView, Text, View, Image, StyleSheet, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Cardsinfo from "@/components/Cardsinfo";
@@ -7,8 +7,13 @@ import TimeCard from "@/components/TimeCard";
 import { color } from "@/constants/colors";
 import QuickCards from "@/components/QuickCards";
 import RecentCards from "@/components/RecentCards";
+import { Link, useRouter } from "expo-router";
+import { scale } from "react-native-size-matters";
 
 export default function Index() {
+
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -18,13 +23,13 @@ export default function Index() {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.profileRow}>
-            <View style={styles.avatarWrapper}>
+            <Pressable style={styles.avatarWrapper} onPress={() => router.push("/profile")}>
               <Image
                 source={icons.avatar}
                 style={styles.avatar}
                 resizeMode="cover"
               />
-            </View>
+            </Pressable>
 
             <View style={styles.welcomeText}>
               <Text style={styles.welcome}>Welcome</Text>
@@ -96,9 +101,13 @@ export default function Index() {
 
         {/* Recent Activity */}
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, styles.mb8]}>
-            Recent Activity
-          </Text>
+          <View style={styles.recentTitle}>
+            <Text style={styles.sectionTitle}>
+              Recent Activity
+            </Text>
+            <Link style={{color:color.primary}} href="/attendence">View More</Link>
+          </View>
+
           <RecentCards />
         </View>
       </ScrollView>
@@ -137,7 +146,7 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     backgroundColor: color.primarylight,
     alignItems: "center",
-    paddingTop: 2,
+    paddingTop: 5,
   },
 
   avatar: {
@@ -174,7 +183,7 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: "Rubik-Medium",
   },
 
@@ -184,7 +193,12 @@ const styles = StyleSheet.create({
     height: 57,
   },
 
-  mb8: {
-    marginBottom: 8,
-  },
+  recentTitle:{
+    display:'flex',
+    flexDirection:'row',
+    width:scale(310),
+    justifyContent:'space-between',
+    alignItems:'center',
+    marginBottom:8
+  }
 });
