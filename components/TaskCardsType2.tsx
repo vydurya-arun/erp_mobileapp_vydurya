@@ -9,7 +9,7 @@ type TaskCards = {
     card: cardItemsTypes[];
 };
 
-const TaskCardsType1 = ({ card }: TaskCards) => {
+const TaskCardsType2 = ({ card }: TaskCards) => {
     return (
         <View style={styles.dashCards}>
             {card.map((item: any, index: any) => (
@@ -31,14 +31,14 @@ const TaskCardsType1 = ({ card }: TaskCards) => {
                         <Text style={{ fontSize: 28, fontFamily: "rubikMedium",color:color.textColour }}>{item.count}</Text>
                     </View>
                     <Text style={{ fontSize: 14, fontFamily: "rubikMedium",color:color.textColourLight }}>{item.name}</Text>
-                    <View style={{ width: "100%", height: 5, backgroundColor: item.colour, borderRadius: 5 }}></View>
+
                 </View>
             ))}
         </View>
     );
 };
 
-export default TaskCardsType1;
+export default TaskCardsType2;
 
 const styles = StyleSheet.create({
     dashCards: {
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         height: verticalScale(100),
         boxShadow: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         backgroundColor:'white',
         padding: 15,
     },

@@ -10,8 +10,31 @@ import { LinearGradient } from 'expo-linear-gradient';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import TaskCardsType1 from '@/components/TaskCardsType1'
+import TaskCardsType2 from '@/components/TaskCardsType2'
+import TaskCard from '@/components/TaskCard'
+
+  export type cardItemsTypes ={
+    id:number,
+    name:string,
+    icon:string,
+    count:string,
+    colour:string,
+    circleColor: string
+  }
+
+  const cardItems:cardItemsTypes[] = [
+    {id:1,name:'In Progress',icon:'timer-sand-complete', count:'5', colour:color.primary,circleColor:color.primarylight},
+    {id:2,name:'Complete',icon:'check-circle-outline', count:'4', colour:color.primaryGreen,circleColor: color.primaryGreenLight},
+  ]
+
+  const cardItems2 :cardItemsTypes[] = [
+    {id:1,name:'Pending',icon:'alert', count:'2', colour:color.primaryRed,circleColor:color.primaryRedLight},
+    {id:2,name:'Accept',icon:'clipboard-check', count:'1', colour:color.primaryViolet,circleColor: color.primaryVioletLight},
+  ]
 
 const Task = () => {
+
+
   return (
     <SafeAreaView style={styles.mainScreen}>
       <ScrollView
@@ -25,22 +48,42 @@ const Task = () => {
         end={{ x: 1, y: 0 }}
         style={styles.totalCard}
        >
-        <Text style={{fontFamily:'rubikMedium', fontSize:14,color:'#D3F0FF'}}>Total Assigned Tasks</Text>
+        <Text style={{fontFamily:'rubikMedium', fontSize:14,color:'#dff4ffff'}}>Total Assigned Tasks</Text>
         <Text style={{fontFamily:'rubikMedium', fontSize:34,color:'#0E4866'}}>10</Text>
         <View style={styles.subCards}>
           <View style={{width:30,height:30, backgroundColor:'#b9e8ff55', borderRadius:'100%',display:'flex', alignItems:'center',justifyContent:'center'}}>
-            <AntDesign name="rise" size={16} color="#D3F0FF" />
+            <AntDesign name="rise" size={16} color="#dff4ffff" />
           </View>
-          <Text style={{fontFamily:'rubikRegular', fontSize:14,color: '#D3F0FF'}}>+3 new this week</Text>
+          <Text style={{fontFamily:'rubikRegular', fontSize:14,color: '#dff4ffff'}}>+3 new this week</Text>
         </View>
         <MaterialCommunityIcons style={styles.icon} name="clipboard-text" size={114} color="#b9e8ff55" />
 
       </LinearGradient>
-      <TaskCardsType1/>
-      <View style={styles.dashCards}>
-        <View style={styles.subDashCard}><Text>1</Text></View>
-        <View style={styles.subDashCard}><Text>2</Text></View>
+      <TaskCardsType1 card={cardItems}/>
+      <TaskCardsType2 card={cardItems2}/>
+      <View style={styles.recentTitle}>
+        <Text style={styles.sectionTitle}>
+          Recent Tasks
+        </Text>
+        <Link style={{color:color.primary}} href="/attendence">View More</Link>
       </View>
+      <View style={styles.taskCards}>
+        <TaskCard/>
+        <TaskCard/>
+        <TaskCard/>
+      </View>
+      <View style={styles.recentTitle}>
+        <Text style={styles.sectionTitle}>
+          Daily Updates
+        </Text>
+        <Link style={{color:color.primary}} href="/attendence">View More</Link>
+      </View>
+      <View style={styles.taskCards}>
+        <TaskCard/>
+        <TaskCard/>
+        <TaskCard/>
+      </View>
+
 
       </ScrollView>
     </SafeAreaView>
@@ -82,22 +125,26 @@ const styles = StyleSheet.create({
     alignItems:'center',
     gap:12
   },
-  dashCards:{
-    maxWidth: scale(360),
-    width:'100%',
-    marginVertical:10,
+    recentTitle:{
     display:'flex',
     flexDirection:'row',
+    width:scale(310),
     justifyContent:'space-between',
+    alignItems:'center',
+    marginBottom:8,
+    marginTop:18
   },
-  subDashCard:{
-    maxWidth: scale(150),
-    width:'100%',
-    borderRadius:12,
-    height:verticalScale(110),
-    boxShadow:'0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+    section: {
+    marginTop: 16,
+  },
+    sectionTitle: {
+    fontSize: 20,
+    fontFamily: "rubikMedium",
+  },
+  taskCards:{
     display:'flex',
-    justifyContent:'center',
-    padding:20,
+    gap:7
   }
+
+
 })

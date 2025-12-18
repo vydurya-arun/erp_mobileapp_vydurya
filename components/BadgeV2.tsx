@@ -1,22 +1,19 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import Octicons from '@expo/vector-icons/Octicons';
 
-const Badge = ({title}:{title:string}) => {
+const BadgeV2 = ({title,textColor,outColor}:{title:string,textColor:string,outColor:string}) => {
   return (
-        <View style={styles.badge}>
-            <Octicons name="dot-fill" size={20} color="#1FC155" />
-            <Text style={styles.badgeTitle}>{title}</Text>
+        <View style={[styles.badge,{backgroundColor:outColor,}]}>
+            <Text style={[styles.badgeTitle,{color:textColor,}]}>{title}</Text>
         </View>
   )
 }
 
-export default Badge
+export default BadgeV2
 
 const styles= StyleSheet.create({
     badge:{
     height:25,
-    backgroundColor:"#D2F3DD",
     display:"flex",
     flexDirection:'row',
     justifyContent:"center",
@@ -26,7 +23,6 @@ const styles= StyleSheet.create({
   },
   badgeTitle:{
     fontFamily: 'rubikMedium',
-    color:"#1FC155",
     fontSize:12,
     paddingTop:2
   },
