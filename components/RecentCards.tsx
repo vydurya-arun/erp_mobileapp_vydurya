@@ -71,7 +71,8 @@ export default RecentCards;
 
 const styles = StyleSheet.create({
   mainCard: {
-    width: scale(320),
+    maxWidth: scale(360),
+    width:'100%',
     backgroundColor: "#ffffff",
     borderRadius: 12,
     display: "flex",
