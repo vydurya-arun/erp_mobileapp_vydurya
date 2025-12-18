@@ -25,7 +25,7 @@ const styles= StyleSheet.create({
     borderRadius:12,
   },
   badgeTitle:{
-    fontFamily: 'Rubik-Medium',
+    fontFamily: 'rubikMedium',
     color:"#1FC155",
     fontSize:12,
     paddingTop:2

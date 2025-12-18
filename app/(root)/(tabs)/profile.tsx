@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   mainHeading: {
-    fontFamily: "Rubik-Medium",
+    fontFamily: "rubikMedium",
     fontSize: 18
   },
   profileMain: {
@@ -134,13 +134,13 @@ const styles = StyleSheet.create({
     borderRadius: 42,
   },
   profileText1: {
-    fontFamily: "Rubik-Medium",
+    fontFamily: "rubikMedium",
     lineHeight: 20,
     fontSize: 28
   },
   profileText2: {
     fontSize: 14,
-    fontFamily: "Rubik-Medium",
+    fontFamily: "rubikMedium",
     color: "#8e9195ff",
   },
   Editbutton: {

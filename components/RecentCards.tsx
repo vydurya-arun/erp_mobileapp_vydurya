@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     borderRadius:12,
   },
   badgeTitle:{
-    fontFamily: 'Rubik-Medium',
+    fontFamily: 'rubikMedium',
     color:"#1FC155"
   },
   badgeLogout:{
@@ -140,11 +140,11 @@ const styles = StyleSheet.create({
     borderRadius:12,
   },
   badgeTitleLogOut:{
-    fontFamily: 'Rubik-Medium',
+    fontFamily: 'rubikMedium',
     color:"#C45855"
   },
   subTitle:{
-    fontFamily: 'Rubik-Medium',
+    fontFamily: 'rubikMedium',
     lineHeight: 12
   }
 });

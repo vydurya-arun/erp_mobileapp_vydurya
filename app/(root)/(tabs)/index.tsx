@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
 
   username: {
     fontSize: 20,
-    fontFamily: "Rubik-Medium",
+    fontFamily: "rubikMedium",
     color: color.textColour,
     lineHeight: 24,
   },
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
 
   sectionTitle: {
     fontSize: 20,
-    fontFamily: "Rubik-Medium",
+    fontFamily: "rubikMedium",
   },
 
   quickActionsRow: {

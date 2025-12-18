@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         color:"#6C7278"
     },
     timeText:{
-        fontFamily: 'Rubik-SemiBold',
+        fontFamily: 'RubikSemiBold',
         fontSize:44,
         lineHeight:50,
         color: color.textColour,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
       
     },
     buttomText:{
-      fontFamily: 'Rubik-SemiBold',
+      fontFamily: 'RubikSemiBold',
       color:"#ffffff"
     }
 })

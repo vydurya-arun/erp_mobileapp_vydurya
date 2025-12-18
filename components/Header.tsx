@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     mainHeading: {
-        fontFamily: "Rubik-Medium",
+        fontFamily: "rubikMedium",
         fontSize: 18
     },
 })

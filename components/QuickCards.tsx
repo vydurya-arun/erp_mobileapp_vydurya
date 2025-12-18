@@ -29,7 +29,7 @@ const styles= StyleSheet.create({
         boxShadow:'0 4px 6px -1px rgb(0 0 0 / 0.1)'
     },
     title:{
-        fontFamily: 'Rubik-SemiBold',
+        fontFamily: 'RubikSemiBold',
         fontSize:14,
         color:color.textColour
     }

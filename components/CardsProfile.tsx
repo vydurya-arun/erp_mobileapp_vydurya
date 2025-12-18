@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: moderateScale(9),
     color: color.textColour,
-    fontFamily: 'Rubik-SemiBold',
+    fontFamily: 'RubikSemiBold',
     textTransform:'uppercase'
   },
   value: {
     fontSize: moderateScale(24),
-    fontFamily: 'Rubik-SemiBold',
+    fontFamily: 'RubikSemiBold',
     
   },
 })
