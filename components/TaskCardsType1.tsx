@@ -12,7 +12,7 @@ type TaskCards = {
 const TaskCardsType1 = ({ card }: TaskCards) => {
     return (
         <View style={styles.dashCards}>
-            {card.map((item: any, index: any) => (
+            {card.map((item: cardItemsTypes, index: number) => (
                 <View key={index} style={styles.subDashCard}>
                     <View style={styles.card}>
                         <View

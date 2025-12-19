@@ -15,7 +15,7 @@ export type PersonalDataItem = {
   id: number;
   title: string;
   label: string;
-  icon: string
+  icon: any
 };
 
 const personalData: PersonalDataItem[] = [

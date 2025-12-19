@@ -105,7 +105,7 @@ export default function Index() {
             <Text style={styles.sectionTitle}>
               Recent Activity
             </Text>
-            <Link style={{color:color.primary}} href="/attendence">View More</Link>
+            <Link style={{color:color.primary}} href="/recentActivity/recentList">View More</Link>
           </View>
 
           <RecentCards />

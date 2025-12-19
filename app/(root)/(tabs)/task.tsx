@@ -1,8 +1,8 @@
 
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Button, Pressable } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import Header from '@/components/Header'
 import { scale, verticalScale } from 'react-native-size-matters'
 import { color } from '@/constants/colors'
@@ -13,14 +13,78 @@ import TaskCardsType1 from '@/components/TaskCardsType1'
 import TaskCardsType2 from '@/components/TaskCardsType2'
 import TaskCard from '@/components/TaskCard'
 
+  export type TaskStatus = 'pending' | 'completed' | 'progress' | 'accept';
   export type cardItemsTypes ={
     id:number,
     name:string,
-    icon:string,
+    icon:any,
     count:string,
     colour:string,
     circleColor: string
   }
+  export type TaskCardTypes={
+    id:number,
+    taskId:string,
+    taskTitle:string,
+    details:string,
+    status:string,
+    badge:TaskStatus,
+    project:string,
+    statusMessage:string,
+    statusMessageIcon:any,
+    colourStatus:string
+  }
+
+const taskCardData: TaskCardTypes[] = [
+  {
+    id: 1,
+    taskId: 'AT101',
+    taskTitle: 'Design Login Screen',
+    details: 'Create UI for login and signup screens',
+    status: 'Pending approval',
+    badge: 'pending',
+    project: 'Vydurya ERP',
+    statusMessage: 'Waiting for review',
+    statusMessageIcon: 'warning-amber',
+    colourStatus:color.primaryRed
+  },
+  {
+    id: 2,
+    taskId: 'AT102',
+    taskTitle: 'API Integration',
+    details: 'Integrate authentication APIs',
+    status: 'In Progress',
+    badge: 'progress',
+    project: 'Vydurya ERP',
+    statusMessage: 'Dec-12-2025, 10.00PM',
+    statusMessageIcon: 'calendar-month',
+    colourStatus:color.primary
+  },
+  {
+    id: 3,
+    taskId: 'AT103',
+    taskTitle: 'Deploy Mobile App',
+    details: 'Build and deploy APK to production',
+    status: 'Completed',
+    badge: 'completed',
+    project: 'Dev Trades',
+    statusMessage: 'Task completed successfully',
+    statusMessageIcon: 'check-circle-outline',
+    colourStatus:color.primaryGreen
+  },
+  {
+    id: 4,
+    taskId: 'AT104',
+    taskTitle: 'Deploy Mobile App',
+    details: 'Build and deploy APK to production',
+    status: 'Accept',
+    badge: 'accept',
+    project: 'Vydurya ERP',
+    statusMessage: 'Dec-12-2025, 10.00PM',
+    statusMessageIcon: 'calendar-month',
+    colourStatus:color.primaryViolet
+  },
+];
 
   const cardItems:cardItemsTypes[] = [
     {id:1,name:'In Progress',icon:'timer-sand-complete', count:'5', colour:color.primary,circleColor:color.primarylight},
@@ -28,13 +92,13 @@ import TaskCard from '@/components/TaskCard'
   ]
 
   const cardItems2 :cardItemsTypes[] = [
-    {id:1,name:'Pending',icon:'alert', count:'2', colour:color.primaryRed,circleColor:color.primaryRedLight},
+    {id:1,name:'Overdue',icon:'alert', count:'2', colour:color.primaryRed,circleColor:color.primaryRedLight},
     {id:2,name:'Accept',icon:'clipboard-check', count:'1', colour:color.primaryViolet,circleColor: color.primaryVioletLight},
   ]
 
 const Task = () => {
 
-
+ const router = useRouter()
   return (
     <SafeAreaView style={styles.mainScreen}>
       <ScrollView
@@ -67,24 +131,23 @@ const Task = () => {
         </Text>
         <Link style={{color:color.primary}} href="/tasks/taskList">View More</Link>
       </View>
-      <View style={styles.taskCards}>
-        <TaskCard/>
-        <TaskCard/>
-        <TaskCard/>
-      </View>
+
+      <Pressable style={styles.taskCards} onPress={()=> router.push('/tasks/1')}>
+        {taskCardData.map((item:TaskCardTypes, index:number)=>(
+          <TaskCard key={index} detailCard={item}/>
+        ))}
+      
+      </Pressable>
       <View style={styles.recentTitle}>
         <Text style={styles.sectionTitle}>
           Daily Updates
         </Text>
-        <Link style={{color:color.primary}} href="/attendence">View More</Link>
+        <Link style={{color:color.primary}} href="/dailyreport/dailyList">View More</Link>
       </View>
-      <View style={styles.taskCards}>
-        <TaskCard/>
-        <TaskCard/>
-        <TaskCard/>
-      </View>
-
-
+      {/* <Pressable style={styles.taskCards} onPress={()=> router.push('/tasks/1')}>
+        <TaskCard />
+      </Pressable> */}
+ 
       </ScrollView>
     </SafeAreaView>
   )

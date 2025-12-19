@@ -12,7 +12,7 @@ type PersonCardProps = {
 const PersonCard = ({ profile }: PersonCardProps) => {
     return (
         <View style={styles.main}>
-            {profile.map((item: any, index: any) => (
+            {profile.map((item: PersonalDataItem, index: number) => (
                 <View key={index} style={styles.container}>
                     <View style={styles.subMain}>
                         <MaterialIcons name={item.icon} size={28} color={color.primary} />

@@ -1,24 +1,46 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import Badge from './Badge'
 import { StyleSheet } from 'react-native'
 import { scale } from 'react-native-size-matters'
 import { verticalScale } from 'react-native-size-matters'
 import { color } from '@/constants/colors'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import BadgeV2 from './BadgeV2'
+import BadgePending from './BadgePending'
+import { TaskCardTypes } from '@/app/(root)/(tabs)/task'
+import BadgeComplete from './BadgeComplete'
+import BadgeProgress from './BadgeProgress'
+import BadgeAccept from './BadgeAccept'
+
+type taskCardProps = {
+    detailCard: TaskCardTypes;
+};
 
 
-const TaskCard = () => {
+const renderBadge = (status: string) => {
+  switch (status) {
+    case 'pending':
+      return <BadgePending />;
+    case 'completed':
+      return <BadgeComplete />;
+    case 'progress':
+      return <BadgeProgress />;
+    case 'accept':
+      return <BadgeAccept />;
+    default:
+      return null;
+  }
+};
+
+const TaskCard = ({detailCard}:taskCardProps) => {
     return (
         <View style={styles.main}>
             <View>
                 <View style={styles.items1}>
-                    <Text style={{ color: color.textColourLight, fontSize: 12 }}>#AT123</Text>
-                    <BadgeV2 title='Complete' outColor={color.primaryGreenLight} textColor={color.primaryGreen}/>
+                    <Text style={{ color: color.textColourLight, fontSize: 12 }}>#{detailCard.taskId}</Text>
+                    {renderBadge(detailCard.badge)}
                 </View>
                 
-                <Text style={{ fontFamily: 'rubikMedium', fontSize: 22,lineHeight:26 }}>Review Q3 Reports</Text>
+                <Text style={{ fontFamily: 'rubikMedium', fontSize: 22,lineHeight:26 }}>{detailCard.taskTitle}</Text>
                 <View style={{ height: verticalScale(29),width:'92%', overflow: 'hidden' }}>
                 <Text
                     numberOfLines={2}
@@ -29,7 +51,7 @@ const TaskCard = () => {
                     color:color.textColourLight
                     }}
                 >
-                    Review the new dashboard wireframes and provide feedback on the user flow for the mobile breakdown.
+                    {detailCard.details}
                 </Text>
                 </View>
 
@@ -37,10 +59,10 @@ const TaskCard = () => {
 
             <View style={styles.items2}>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 3 }}>
-                    <MaterialIcons name="check-circle-outline" size={18} color={color.primaryGreen} />
-                    <Text style={{ color: color.primaryGreen ,fontSize:12}}>Done yesterday</Text>
+                    <MaterialIcons name={detailCard.statusMessageIcon} size={18} color={ detailCard.colourStatus} />
+                    <Text style={{ color: detailCard.colourStatus ,fontSize:12}}>{detailCard.statusMessage}</Text>
                 </View>
-                <Text style={{fontFamily:'rubikMedium',fontSize:13,color:color.primaryOrange}}>ERP Software</Text>
+                <Text style={{fontFamily:'rubikMedium',fontSize:13,color:color.textColour}}>{detailCard.project}</Text>
             </View>
 
         </View>
