@@ -13,27 +13,27 @@ import TaskCardsType1 from '@/components/TaskCardsType1'
 import TaskCardsType2 from '@/components/TaskCardsType2'
 import TaskCard from '@/components/TaskCard'
 
-  export type TaskStatus = 'pending' | 'completed' | 'progress' | 'accept';
-  export type cardItemsTypes ={
-    id:number,
-    name:string,
-    icon:any,
-    count:string,
-    colour:string,
-    circleColor: string
-  }
-  export type TaskCardTypes={
-    id:number,
-    taskId:string,
-    taskTitle:string,
-    details:string,
-    status:string,
-    badge:TaskStatus,
-    project:string,
-    statusMessage:string,
-    statusMessageIcon:any,
-    colourStatus:string
-  }
+export type TaskStatus = 'pending' | 'completed' | 'progress' | 'accept';
+export type cardItemsTypes = {
+  id: number,
+  name: string,
+  icon: any,
+  count: string,
+  colour: string,
+  circleColor: string
+}
+export type TaskCardTypes = {
+  id: number,
+  taskId: string,
+  taskTitle: string,
+  details: string,
+  status: string,
+  badge: TaskStatus,
+  project: string,
+  statusMessage: string,
+  statusMessageIcon: any,
+  colourStatus: string
+}
 
 const taskCardData: TaskCardTypes[] = [
   {
@@ -46,7 +46,7 @@ const taskCardData: TaskCardTypes[] = [
     project: 'Vydurya ERP',
     statusMessage: 'Waiting for review',
     statusMessageIcon: 'warning-amber',
-    colourStatus:color.primaryRed
+    colourStatus: color.primaryRed
   },
   {
     id: 2,
@@ -58,7 +58,7 @@ const taskCardData: TaskCardTypes[] = [
     project: 'Vydurya ERP',
     statusMessage: 'Dec-12-2025, 10.00PM',
     statusMessageIcon: 'calendar-month',
-    colourStatus:color.primary
+    colourStatus: color.primary
   },
   {
     id: 3,
@@ -70,84 +70,73 @@ const taskCardData: TaskCardTypes[] = [
     project: 'Dev Trades',
     statusMessage: 'Task completed successfully',
     statusMessageIcon: 'check-circle-outline',
-    colourStatus:color.primaryGreen
+    colourStatus: color.primaryGreen
   },
-  {
-    id: 4,
-    taskId: 'AT104',
-    taskTitle: 'Deploy Mobile App',
-    details: 'Build and deploy APK to production',
-    status: 'Accept',
-    badge: 'accept',
-    project: 'Vydurya ERP',
-    statusMessage: 'Dec-12-2025, 10.00PM',
-    statusMessageIcon: 'calendar-month',
-    colourStatus:color.primaryViolet
-  },
+
 ];
 
-  const cardItems:cardItemsTypes[] = [
-    {id:1,name:'In Progress',icon:'timer-sand-complete', count:'5', colour:color.primary,circleColor:color.primarylight},
-    {id:2,name:'Complete',icon:'check-circle-outline', count:'4', colour:color.primaryGreen,circleColor: color.primaryGreenLight},
-  ]
+const cardItems: cardItemsTypes[] = [
+  { id: 1, name: 'In Progress', icon: 'timer-sand-complete', count: '5', colour: color.primary, circleColor: color.primarylight },
+  { id: 2, name: 'Complete', icon: 'check-circle-outline', count: '4', colour: color.primaryGreen, circleColor: color.primaryGreenLight },
+]
 
-  const cardItems2 :cardItemsTypes[] = [
-    {id:1,name:'Overdue',icon:'alert', count:'2', colour:color.primaryRed,circleColor:color.primaryRedLight},
-    {id:2,name:'Accept',icon:'clipboard-check', count:'1', colour:color.primaryViolet,circleColor: color.primaryVioletLight},
-  ]
+const cardItems2: cardItemsTypes[] = [
+  { id: 1, name: 'Overdue', icon: 'alert', count: '2', colour: color.primaryRed, circleColor: color.primaryRedLight },
+  { id: 2, name: 'Accept', icon: 'clipboard-check', count: '1', colour: color.primaryViolet, circleColor: color.primaryVioletLight },
+]
 
 const Task = () => {
 
- const router = useRouter()
+  const router = useRouter()
   return (
     <SafeAreaView style={styles.mainScreen}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-      <Header title='My Task'/>
-      <LinearGradient
-        colors={['#7AD1FF','#4EC2FF','#209ADA']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.totalCard}
-       >
-        <Text style={{fontFamily:'rubikMedium', fontSize:14,color:'#dff4ffff'}}>Total Assigned Tasks</Text>
-        <Text style={{fontFamily:'rubikMedium', fontSize:34,color:'#0E4866'}}>10</Text>
-        <View style={styles.subCards}>
-          <View style={{width:30,height:30, backgroundColor:'#b9e8ff55', borderRadius:'100%',display:'flex', alignItems:'center',justifyContent:'center'}}>
-            <AntDesign name="rise" size={16} color="#dff4ffff" />
+        <Header title='My Task' />
+        <LinearGradient
+          colors={['#7AD1FF', '#4EC2FF', '#209ADA']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.totalCard}
+        >
+          <Text style={{ fontFamily: 'rubikMedium', fontSize: 14, color: '#dff4ffff' }}>Total Assigned Tasks</Text>
+          <Text style={{ fontFamily: 'rubikMedium', fontSize: 34, color: '#0E4866' }}>10</Text>
+          <View style={styles.subCards}>
+            <View style={{ width: 30, height: 30, backgroundColor: '#b9e8ff55', borderRadius: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <AntDesign name="rise" size={16} color="#dff4ffff" />
+            </View>
+            <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, color: '#dff4ffff' }}>+3 new this week</Text>
           </View>
-          <Text style={{fontFamily:'rubikRegular', fontSize:14,color: '#dff4ffff'}}>+3 new this week</Text>
+          <MaterialCommunityIcons style={styles.icon} name="clipboard-text" size={114} color="#b9e8ff55" />
+
+        </LinearGradient>
+        <TaskCardsType1 card={cardItems} />
+        <TaskCardsType2 card={cardItems2} />
+        <View style={styles.recentTitle}>
+          <Text style={styles.sectionTitle}>
+            Recent Tasks
+          </Text>
+          <Link style={{ color: color.primary }} href="/tasks/taskList">View More</Link>
         </View>
-        <MaterialCommunityIcons style={styles.icon} name="clipboard-text" size={114} color="#b9e8ff55" />
 
-      </LinearGradient>
-      <TaskCardsType1 card={cardItems}/>
-      <TaskCardsType2 card={cardItems2}/>
-      <View style={styles.recentTitle}>
-        <Text style={styles.sectionTitle}>
-          Recent Tasks
-        </Text>
-        <Link style={{color:color.primary}} href="/tasks/taskList">View More</Link>
-      </View>
+        <Pressable style={styles.taskCards} onPress={() => router.push('/tasks/1')}>
+          {taskCardData.map((item: TaskCardTypes, index: number) => (
+            <TaskCard key={index} detailCard={item} />
+          ))}
 
-      <Pressable style={styles.taskCards} onPress={()=> router.push('/tasks/1')}>
-        {taskCardData.map((item:TaskCardTypes, index:number)=>(
-          <TaskCard key={index} detailCard={item}/>
-        ))}
-      
-      </Pressable>
-      <View style={styles.recentTitle}>
-        <Text style={styles.sectionTitle}>
-          Daily Updates
-        </Text>
-        <Link style={{color:color.primary}} href="/dailyreport/dailyList">View More</Link>
-      </View>
-      {/* <Pressable style={styles.taskCards} onPress={()=> router.push('/tasks/1')}>
+        </Pressable>
+        <View style={styles.recentTitle}>
+          <Text style={styles.sectionTitle}>
+            Daily Updates
+          </Text>
+          <Link style={{ color: color.primary }} href="/dailyreport/dailyList">View More</Link>
+        </View>
+        {/* <Pressable style={styles.taskCards} onPress={()=> router.push('/tasks/1')}>
         <TaskCard />
       </Pressable> */}
- 
+
       </ScrollView>
     </SafeAreaView>
   )
@@ -156,57 +145,57 @@ const Task = () => {
 export default Task
 
 const styles = StyleSheet.create({
-    mainScreen: {
+  mainScreen: {
     flex: 1,
     backgroundColor: "rgba(243,244,246,0.5)",
   },
-    scrollContent: {
+  scrollContent: {
     paddingHorizontal: 20,
     paddingVertical: 12,
   },
-  totalCard:{
+  totalCard: {
     maxWidth: scale(360),
-    width:'100%',
-    borderRadius:12,
-    height:verticalScale(110),
-    marginVertical:10,
-    boxShadow:'0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    position:'relative',
-    overflow:'hidden',
-    display:'flex',
-    justifyContent:'center',
-    padding:20,
+    width: '100%',
+    borderRadius: 12,
+    height: verticalScale(110),
+    marginVertical: 10,
+    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: 20,
   },
-  icon:{
-    position:'absolute',
-    right:-20,
-    top:25
+  icon: {
+    position: 'absolute',
+    right: -20,
+    top: 25
   },
-  subCards:{
-    display:'flex',
-    flexDirection:'row',
-    alignItems:'center',
-    gap:12
+  subCards: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12
   },
-    recentTitle:{
-    display:'flex',
-    flexDirection:'row',
-    width:scale(310),
-    justifyContent:'space-between',
-    alignItems:'center',
-    marginBottom:8,
-    marginTop:18
+  recentTitle: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: scale(310),
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+    marginTop: 18
   },
-    section: {
+  section: {
     marginTop: 16,
   },
-    sectionTitle: {
+  sectionTitle: {
     fontSize: 20,
     fontFamily: "rubikMedium",
   },
-  taskCards:{
-    display:'flex',
-    gap:7
+  taskCards: {
+    display: 'flex',
+    gap: 7
   }
 
 
