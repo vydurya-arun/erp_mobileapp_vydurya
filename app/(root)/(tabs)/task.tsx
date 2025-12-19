@@ -65,7 +65,7 @@ const Task = () => {
         <Text style={styles.sectionTitle}>
           Recent Tasks
         </Text>
-        <Link style={{color:color.primary}} href="/attendence">View More</Link>
+        <Link style={{color:color.primary}} href="/tasks/taskList">View More</Link>
       </View>
       <View style={styles.taskCards}>
         <TaskCard/>
