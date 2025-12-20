@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const TabIcon = ({focused,title,name,sizes}:{focused:boolean, title:string,name:any,sizes?: number | undefined})=>(
     <View style={styles.container}>
@@ -22,6 +23,7 @@ const TabIcon = ({focused,title,name,sizes}:{focused:boolean, title:string,name:
 )
 
 const TabsLayout = () => {
+
   return (
     <Tabs screenOptions={{
         tabBarShowLabel:false,
@@ -30,7 +32,8 @@ const TabsLayout = () => {
             position:'absolute',
             borderTopColor:'#0061ff1a',
             borderTopWidth:1,
-            minHeight:75,
+            minHeight:verticalScale(61),
+            paddingTop: verticalScale(10)
         }
     }}>
         <Tabs.Screen 
@@ -39,17 +42,17 @@ const TabsLayout = () => {
                 title:'Home',
                 headerShown:false,
                 tabBarIcon:({focused})=>(
-                <TabIcon focused={focused} title='Home' name='home' sizes={29}/>
+                <TabIcon focused={focused} title='Home' name='home-filled' sizes={moderateScale(26)}/>
                 )
             }}
         />
         <Tabs.Screen 
             name='attendence'
             options={{
-                title:'Attendence',
+                title:'Attendance',
                 headerShown:false,
                 tabBarIcon:({focused})=>(
-                <TabIcon focused={focused} title='Attendence' name="calendar-today" sizes={23}/>
+                <TabIcon focused={focused} title='Attendence' name="calendar-today" sizes={moderateScale(24)}/>
                 )
             }}
         />
@@ -59,7 +62,7 @@ const TabsLayout = () => {
                 title:'Task',
                 headerShown:false,
                 tabBarIcon:({focused})=>(
-                <TabIcon focused={focused} title='Task' name="task-alt" sizes={26}/>
+                <TabIcon focused={focused} title='Task' name="task-alt" sizes={moderateScale(26)}/>
                 )
             }}
         />
@@ -69,7 +72,7 @@ const TabsLayout = () => {
                 title:'Profile',
                 headerShown:false,
                 tabBarIcon:({focused})=>(
-                <TabIcon focused={focused} title='profile' name="person" sizes={26}/>
+                <TabIcon focused={focused} title='profile' name="person" sizes={moderateScale(26)}/>
                 )
             }}
         />
@@ -82,16 +85,17 @@ export default TabsLayout
 
 const styles = StyleSheet.create({
   container: {
+    display:'flex',
     flexDirection: "column",
-    height: 80,      
-    width: 80,       
-    paddingTop: 20,  
+    height: verticalScale(40),      
+    width: scale(56) ,         
     alignItems: "center",
     justifyContent: "center",
+    gap:3
   },
 
   label: {
-    fontSize: 14,  
-    marginTop: 4,   
+    fontSize: moderateScale(11) , 
+    lineHeight:moderateScale(13)
   },
 });

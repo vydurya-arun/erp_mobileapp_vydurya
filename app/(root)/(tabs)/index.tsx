@@ -8,7 +8,7 @@ import { color } from "@/constants/colors";
 import QuickCards from "@/components/QuickCards";
 import RecentCards from "@/components/RecentCards";
 import { Link, useRouter } from "expo-router";
-import { scale } from "react-native-size-matters";
+import { scale, verticalScale } from "react-native-size-matters";
 
 export default function Index() {
 
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   quickActionsRow: {
     marginTop: 8,
     gap: 12,
-    height: 57,
+    height: verticalScale(57) ,
   },
 
   recentTitle:{
