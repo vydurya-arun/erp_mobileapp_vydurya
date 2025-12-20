@@ -134,7 +134,7 @@ const taskList = () => {
           </View>
           <View style={styles.filerTags}>
             {FilerTags.map((item:FilerTagsProps,index:number)=>(
-              <BadgeV2 key={index} title={item.status} textColor={item.tagcolor} outColor={item.outline}/>
+              <BadgeV2 widths={70} key={index} title={item.status} textColor={item.tagcolor} outColor={item.outline}/>
             ))}
             
           </View>
