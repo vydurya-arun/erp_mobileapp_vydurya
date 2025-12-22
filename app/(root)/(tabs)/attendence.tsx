@@ -57,10 +57,35 @@ const Attendence = () => {
           style={styles.calendarStyle}
         />
       </View>
-      <View>
+      <View style={styles.recentTitle}>
+        <Text style={styles.sectionTitle}>
+          Manage Leaves
+        </Text>
+      </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height:verticalScale(70),paddingHorizontal:12}} contentContainerStyle={{alignItems:'center',gap:25}}>
+
+        <View style={styles.mainLiks}>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+        </View>
+        <View style={styles.mainLiks}>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+        </View>
+        <View style={styles.mainLiks}>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+        </View>
+        <View style={styles.mainLiks}>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+        </View>
+      </ScrollView>
+
+      <View style={{marginBottom:10}}>
         <View style={styles.recentTitle}>
           <Text style={styles.sectionTitle}>
-            Recent Tasks
+            Recent Events
           </Text>
           <Link style={{ color: color.primary }} href="/tasks/taskList">View More</Link>
         </View>
@@ -89,7 +114,6 @@ const styles = StyleSheet.create({
     sectionTitle: {
     fontSize: moderateScale(18),
     fontFamily: "rubikMedium",
-    marginTop:moderateScale(5),
     color:color.textColour
   },
     sectionTitle2: {
@@ -112,6 +136,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
-    marginTop: 18
+    marginTop: 5
   },
+  mainLiks:{
+    width:scale(50),
+    height:scale(50),
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'flex-end',
+    paddingBottom:7,
+    backgroundColor:'white',
+    borderRadius:60,
+    position:'relative'
+  }
 })

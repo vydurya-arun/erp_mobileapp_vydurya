@@ -4,7 +4,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Link, useRouter } from 'expo-router'
 import Header from '@/components/Header'
-import { scale, verticalScale } from 'react-native-size-matters'
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { color } from '@/constants/colors'
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -118,6 +118,30 @@ const Task = () => {
         </LinearGradient>
         <TaskCardsType1 card={cardItems} />
         <TaskCardsType2 card={cardItems2} />
+              <View style={styles.recentTitle}>
+        <Text style={styles.sectionTitle}>
+          Manage Tasks
+        </Text>
+      </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height:verticalScale(70),paddingHorizontal:12}} contentContainerStyle={{alignItems:'center',gap:25}}>
+
+        <View style={styles.mainLiks}>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+        </View>
+        <View style={styles.mainLiks}>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+        </View>
+        <View style={styles.mainLiks}>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+        </View>
+        <View style={styles.mainLiks}>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+        </View>
+      </ScrollView>
         <View style={styles.recentTitle}>
           <Text style={styles.sectionTitle}>
             Recent Tasks
@@ -131,15 +155,7 @@ const Task = () => {
           ))}
 
         </Pressable>
-        <View style={styles.recentTitle}>
-          <Text style={styles.sectionTitle}>
-            Daily Updates
-          </Text>
-          <Link style={{ color: color.primary }} href="/dailyreport/dailyList">View More</Link>
-        </View>
-        {/* <Pressable style={styles.taskCards} onPress={()=> router.push('/tasks/1')}>
-        <TaskCard />
-      </Pressable> */}
+
 
       </ScrollView>
     </SafeAreaView>
@@ -185,7 +201,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
-    marginTop: 18
   },
   section: {
     marginTop: 16,
@@ -197,6 +212,17 @@ const styles = StyleSheet.create({
   taskCards: {
     display: 'flex',
     gap: 7
+  },
+    mainLiks:{
+    width:scale(50),
+    height:scale(50),
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'flex-end',
+    paddingBottom:7,
+    backgroundColor:'white',
+    borderRadius:60,
+    position:'relative'
   }
 
 

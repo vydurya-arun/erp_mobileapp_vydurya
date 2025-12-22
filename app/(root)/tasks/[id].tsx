@@ -101,7 +101,7 @@ const TasksDetails = () => {
              style={{width:'100%',marginVertical:verticalScale(10)}}>
               <View style={styles.imageCard}>
                 <View style={styles.imageUpload}>
-                  <MaterialIcons name="image" size={48} color={color.primary} />
+                  <MaterialIcons name="image" size={38} color={color.primary} />
                 </View>
                 <View>
                   <Text style={{fontFamily:'rubikMedium'}}>ErpScreen.png</Text>
@@ -110,7 +110,7 @@ const TasksDetails = () => {
               </View>
               <View style={styles.imageCard}>
                 <View style={styles.imageUpload}>
-                  <MaterialIcons name="image" size={48} color={color.primary} />
+                  <MaterialIcons name="image" size={38} color={color.primary} />
                 </View>
                 <View>
                   <Text style={{fontFamily:'rubikMedium'}}>ErpScreen.png</Text>
@@ -119,7 +119,7 @@ const TasksDetails = () => {
               </View>
               <View style={styles.imageCard}>
                 <View style={styles.imageUpload}>
-                  <MaterialIcons name="image" size={48} color={color.primary} />
+                  <MaterialIcons name="image" size={38} color={color.primary} />
                 </View>
                 <View>
                   <Text style={{fontFamily:'rubikMedium'}}>ErpScreen.png</Text>
