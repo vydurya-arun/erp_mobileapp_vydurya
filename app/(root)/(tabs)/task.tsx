@@ -12,6 +12,8 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import TaskCardsType1 from '@/components/TaskCardsType1'
 import TaskCardsType2 from '@/components/TaskCardsType2'
 import TaskCard from '@/components/TaskCard'
+import Fontisto from '@expo/vector-icons/Fontisto';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export type TaskStatus = 'pending' | 'completed' | 'progress' | 'accept';
 export type cardItemsTypes = {
@@ -125,22 +127,20 @@ const Task = () => {
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height:verticalScale(70),paddingHorizontal:12}} contentContainerStyle={{alignItems:'center',gap:25}}>
 
-        <View style={styles.mainLiks}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
-        </View>
-        <View style={styles.mainLiks}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
-        </View>
-        <View style={styles.mainLiks}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
-        </View>
-        <View style={styles.mainLiks}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
-        </View>
+        <Pressable style={styles.mainLiks} onPress={()=> router.push('/dailyreport/dailyList')}>
+          <Fontisto name="person" style={{position:'absolute',top:-13,}}  size={30} color={color.primaryOrange} />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11,color:color.textColour}}>Daily Update</Text>
+        </Pressable>
+        <Pressable style={styles.mainLiks} onPress={()=> router.push('/tasks/notes')}>
+          <MaterialCommunityIcons name="file-document-edit" style={{position:'absolute',top:-13,}}  size={30} color={color.primary} />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11,color:color.textColour}}>Task Notes</Text>
+        </Pressable>
+       <Pressable style={styles.mainLiks} onPress={()=> router.push('/meeting/meetingList')}>
+          <MaterialIcons name="video-call" style={{position:'absolute',top:-14,}}  size={38} color={color.primaryGreen} />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11,color:color.textColour}}>My Meetings</Text>
+        </Pressable>
+
+
       </ScrollView>
         <View style={styles.recentTitle}>
           <Text style={styles.sectionTitle}>

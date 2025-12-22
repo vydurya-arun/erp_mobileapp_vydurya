@@ -9,6 +9,7 @@ import AttendenceCard from '@/components/AttendenceCard';
 import {Calendar,LocaleConfig} from 'react-native-calendars';
 import AttendenceEvent from '@/components/AttendenceEvent';
 import { Link } from 'expo-router';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
   export type cardTypes = {
     id:number,
@@ -65,21 +66,18 @@ const Attendence = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height:verticalScale(70),paddingHorizontal:12}} contentContainerStyle={{alignItems:'center',gap:25}}>
 
         <View style={styles.mainLiks}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color='#0c98e3ff' />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11, color:color.textColour}}>Leave History</Text>
         </View>
         <View style={styles.mainLiks}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+          <MaterialIcons style={{position:'absolute',top:-12}} name="note-alt" size={34} color={color.primaryViolet} />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Apply Leave</Text>
         </View>
         <View style={styles.mainLiks}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
+          <MaterialCommunityIcons name="file-document"style={{position:'absolute',top:-12}}  size={34} color={color.primaryOrange} />
+          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Daily Activity</Text>
         </View>
-        <View style={styles.mainLiks}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color="black" />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Leave History</Text>
-        </View>
+
       </ScrollView>
 
       <View style={{marginBottom:10}}>

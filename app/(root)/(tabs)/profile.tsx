@@ -10,6 +10,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import CardsProfile from '@/components/CardsProfile'
 import PersonCard from '@/components/PersonCard'
 import Header from '@/components/Header'
+import { useRouter } from 'expo-router'
 
 export type PersonalDataItem = {
   id: number;
@@ -48,6 +49,9 @@ const workData: PersonalDataItem[] =[
 
 
 const Profile = () => {
+
+  const router = useRouter()
+
   return (
     <SafeAreaView style={styles.mainScreen}>
       <ScrollView
@@ -88,7 +92,7 @@ const Profile = () => {
         </View>
         <PersonCard profile={workData}/>
 
-        <TouchableOpacity style={styles.logout}>
+        <TouchableOpacity style={styles.logout} onPress={()=> router.push('/login')}>
             <MaterialCommunityIcons name="logout" size={28} color="#C45855" />
             <Text style={{color:'#C45855',fontFamily:'rubikMedium', fontSize:15}}>Log Out</Text>
         </TouchableOpacity>
