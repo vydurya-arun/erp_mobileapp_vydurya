@@ -28,7 +28,7 @@ const TaskCardsType2 = ({ card }: TaskCards) => {
                         >
                             <MaterialCommunityIcons name={item.icon} size={26} color={item.colour} />
                         </View>
-                        <Text style={{ fontSize: 28, fontFamily: "rubikMedium",color:color.textColour }}>{item.count}</Text>
+                        <Text style={{ fontSize: 28, fontFamily: "rubikMedium",color:item.colour }}>{item.count}</Text>
                     </View>
                     <Text style={{ fontSize: 14, fontFamily: "rubikMedium",color:color.textColourLight }}>{item.name}</Text>
 
