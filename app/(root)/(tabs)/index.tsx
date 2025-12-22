@@ -1,5 +1,5 @@
 import { icons } from "@/constants/logo";
-import { ScrollView, Text, View, Image, StyleSheet, Pressable } from "react-native";
+import { ScrollView, Text, View, Image, StyleSheet, Pressable, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Cardsinfo from "@/components/Cardsinfo";
@@ -13,9 +13,11 @@ import { scale, verticalScale } from "react-native-size-matters";
 export default function Index() {
 
   const router = useRouter();
+      const windowWidth = useWindowDimensions().width
+      const windowHeight = useWindowDimensions().height
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{ width: windowWidth, height: windowHeight }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
@@ -117,10 +119,6 @@ export default function Index() {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "rgba(243,244,246,0.5)",
-  },
 
   scrollContent: {
     paddingHorizontal: 20,

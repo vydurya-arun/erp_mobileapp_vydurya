@@ -1,5 +1,5 @@
 
-import { View, Text, ScrollView, StyleSheet, Button, Pressable } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Button, Pressable, useWindowDimensions } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Link, useRouter } from 'expo-router'
@@ -88,8 +88,12 @@ const cardItems2: cardItemsTypes[] = [
 const Task = () => {
 
   const router = useRouter()
+  const windowWidth = useWindowDimensions().width
+  const windowHeight = useWindowDimensions().height
+
+
   return (
-    <SafeAreaView style={styles.mainScreen}>
+    <SafeAreaView style={{ width: windowWidth, height: windowHeight }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
@@ -145,10 +149,7 @@ const Task = () => {
 export default Task
 
 const styles = StyleSheet.create({
-  mainScreen: {
-    flex: 1,
-    backgroundColor: "rgba(243,244,246,0.5)",
-  },
+
   scrollContent: {
     paddingHorizontal: 20,
     paddingVertical: 12,

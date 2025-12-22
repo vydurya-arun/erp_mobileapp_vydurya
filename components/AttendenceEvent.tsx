@@ -1,73 +1,59 @@
+
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { color } from "@/constants/colors";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const RecentCards = () => {
+const AttendenceEvent = () => {
   return (
     <View style={styles.mainCard}>
       <View style={styles.contain}>
         <View style={styles.subContain}>
-          <View style={styles.logoContainer}>
-            <MaterialIcons name="location-pin" size={30} color="#1FC155" />
+          <View style={[styles.logoContainer,{backgroundColor:color.primaryVioletLight}]}>
+            <MaterialCommunityIcons name="party-popper" size={30} color={color.primaryViolet} />
           </View>
           <View>
-            <Text style={styles.subTitle}>Check In</Text>
-            <Text>09:30 AM</Text>
+            <Text style={styles.subTitle}>Christmas Party</Text>
+            <Text>Dec 25, 2025</Text>
+          </View>
+        </View>
+
+      </View>
+      <View style={styles.contain}>
+        <View style={styles.subContain}>
+          <View style={[styles.logoContainer,{backgroundColor:color.primaryRedLight}]}>
+            <MaterialCommunityIcons name="emoticon-sick" size={24} color={color.primaryRed} />
+          </View>
+          <View>
+            <Text style={styles.subTitle}>Sick Leave</Text>
+            <Text>Dec 24, 2025</Text>
           </View>
         </View>
         <View style={styles.badge}>
-            <Text style={styles.badgeTitle}>On Time</Text>
+            <Text style={styles.badgeTitle}>01 Day</Text>
         </View>
       </View>
       <View style={styles.contain}>
         <View style={styles.subContain}>
-          <View style={styles.logoContainer}>
-            <MaterialIcons name="location-pin" size={30} color="#1FC155" />
+          <View style={[styles.logoContainer,{backgroundColor:color.primaryGreenLight}]}>
+            <MaterialCommunityIcons name="check-circle" size={30} color={color.primaryGreen} />
           </View>
           <View>
-            <Text style={styles.subTitle}>Check In</Text>
+            <Text style={styles.subTitle}>Regular Work</Text>
             <Text>09:30 AM</Text>
           </View>
         </View>
         <View style={styles.badge}>
-            <Text style={styles.badgeTitle}>On Time</Text>
+            <Text style={styles.badgeTitle}>06:20 hour</Text>
         </View>
       </View>
-      <View style={styles.contain}>
-        <View style={styles.subContain}>
-          <View style={styles.logoContainerLogout}>
-            <MaterialIcons name="login" size={30} color="#C45855" />
-          </View>
-          <View>
-            <Text style={styles.subTitle}>Check Out</Text>
-            <Text>09:30 AM</Text>
-          </View>
-        </View>
-        <View style={styles.badgeLogout}>
-            <Text style={styles.badgeTitleLogOut}>Late</Text>
-        </View>
-      </View>
-      <View style={styles.contain}>
-        <View style={styles.subContain}>
-          <View style={styles.logoContainer}>
-            <MaterialIcons name="location-pin" size={30} color="#1FC155" />
-          </View>
-          <View>
-            <Text style={styles.subTitle}>Check In</Text>
-            <Text>09:30 AM</Text>
-          </View>
-        </View>
-        <View style={styles.badge}>
-            <Text style={styles.badgeTitle}>On Time</Text>
-        </View>
-      </View>
+
     </View>
   );
 };
 
-export default RecentCards;
+export default AttendenceEvent;
 
 const styles = StyleSheet.create({
   mainCard: {
@@ -101,49 +87,32 @@ const styles = StyleSheet.create({
   logoContainer: {
     width: scale(40),
     height: verticalScale(38),
-    backgroundColor: "#D2F3DD",
     borderRadius: 24,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
-  logoContainerLogout:{
-    width: scale(40),
-    height: verticalScale(38),
-    backgroundColor: "#F3DEDD",
-    borderRadius: 24,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+
   badge:{
-    width:80,
     height:25,
-    backgroundColor:"#D2F3DD",
+    backgroundColor:"#eeeeeec9",
     display:"flex",
     justifyContent:"center",
     alignItems:"center",
     borderRadius:12,
+    paddingHorizontal:12
   },
   badgeTitle:{
     fontFamily: 'rubikMedium',
-    color:"#1FC155"
+    color:color.textColourLight
   },
-  badgeLogout:{
-    width:80,
-    height:25,
-    backgroundColor:"#F3DEDD",
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center",
-    borderRadius:12,
-  },
+
   badgeTitleLogOut:{
     fontFamily: 'rubikMedium',
     color:"#C45855"
   },
   subTitle:{
     fontFamily: 'rubikMedium',
-    lineHeight: 12
+    lineHeight: 15
   }
 });

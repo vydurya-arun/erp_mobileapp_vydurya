@@ -1,5 +1,5 @@
 
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native'
 import React from 'react'
 import { Stack, useRouter } from 'expo-router'
 import { TaskCardTypes } from '../(tabs)/task'
@@ -8,6 +8,7 @@ import TaskCard from '@/components/TaskCard';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import BadgeV2 from '@/components/BadgeV2';
+import { moderateScale } from 'react-native-size-matters';
 
 const taskCardData: TaskCardTypes[] = [
   {
@@ -113,11 +114,13 @@ const FilerTags : FilerTagsProps[]=[
 const taskList = () => {
 
   const router = useRouter()
+    const windowWidth = useWindowDimensions().width
+    const windowHeight = useWindowDimensions().height
 
   return (
     <>
-      <Stack.Screen options={{ title: 'My All Tasks' }} />
-      <View style={styles.mainScreen}>
+      <Stack.Screen options={{ title: 'My All Tasks' ,headerTitleStyle: { fontFamily: 'rubikMedium' } }} />
+      <View style={{ width: windowWidth, height: windowHeight,}}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
@@ -155,17 +158,15 @@ const taskList = () => {
 export default taskList
 
 const styles = StyleSheet.create({
-  mainScreen: {
-    flex: 1,
-    backgroundColor: "rgba(243,244,246,0.5)",
-  },
+
   scrollContent: {
     paddingHorizontal: 20,
     paddingVertical: 2,
   },
   taskCards: {
     display: 'flex',
-    gap: 7
+    gap: 7,
+    marginBottom:moderateScale(80)
   },
   searchContainer:{
     backgroundColor:'white',

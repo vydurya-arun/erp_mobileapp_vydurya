@@ -1,4 +1,4 @@
-import { View, Text, useWindowDimensions, ScrollView, StyleSheet, Button, Touchable, TouchableOpacity } from 'react-native'
+import { View, Text, useWindowDimensions, ScrollView, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 import { Stack, useLocalSearchParams } from 'expo-router'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
@@ -127,17 +127,17 @@ const TasksDetails = () => {
                 </View>
               </View>
             </ScrollView>
-            <TouchableOpacity style={{width:'100%', backgroundColor:'#0c98e3ff',height:verticalScale(36),borderRadius:12,display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <Pressable style={{width:'100%', backgroundColor:'#0c98e3ff',height:verticalScale(36),borderRadius:12,display:'flex',alignItems:'center',justifyContent:'center'}}>
               <Text style={{fontFamily:'rubikMedium', fontSize:moderateScale(17),color:'#ffffff'}}>
                 Complete Task
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{marginTop:12, marginBottom:22,width:'100%', borderWidth:1,borderColor:'#0c98e3ff' ,height:verticalScale(36),borderRadius:12,display:'flex', flexDirection:'row', gap:3,alignItems:'center',justifyContent:'center'}}>
+            </Pressable>
+            <Pressable style={{marginTop:12, marginBottom:22,width:'100%', borderWidth:1,borderColor:'#0c98e3ff' ,height:verticalScale(36),borderRadius:12,display:'flex', flexDirection:'row', gap:3,alignItems:'center',justifyContent:'center'}}>
               <MaterialIcons name="mode-comment" size={24} color="#0c98e3ff" />
               <Text style={{fontFamily:'rubikMedium', fontSize:moderateScale(17),color:'#0c98e3ff'}}>
                 Add Comment
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
         </View>
