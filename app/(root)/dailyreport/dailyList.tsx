@@ -7,12 +7,8 @@ const dailyList = () => {
     <>
       <Stack.Screen options={{ title: 'My Daily Updates' }} />
       <View style={styles.mainScreen}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContent}
-        >
-          <Text>Daily Report</Text>
-        </ScrollView>
+          <View style={{ flex: 1,backgroundColor:'yellow' }} />
+           <View style={{ flex: 1,backgroundColor:'blue' }} />
 
       </View>
     </>
@@ -24,10 +20,12 @@ export default dailyList
 const styles = StyleSheet.create({
   mainScreen: {
     flex: 1,
-    backgroundColor: "rgba(243,244,246,0.5)",
+    backgroundColor: "red",
   },
   scrollContent: {
     paddingHorizontal: 20,
     paddingVertical: 2,
+    backgroundColor:'blue',
+    flexGrow:1
   },
 })

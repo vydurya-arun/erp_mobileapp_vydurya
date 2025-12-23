@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
     dashCards: {
         maxWidth: scale(360),
         width: "100%",
-        marginVertical: 10,
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "center",
+        gap:10
     },
     subDashCard: {
         maxWidth: scale(150),

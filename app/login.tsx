@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 112,
-    height: 112,
+    width: 130,
+    height: 130,
   },
 
   welcome: {

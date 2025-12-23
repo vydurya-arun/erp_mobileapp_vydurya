@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "center",
+        gap:10
     },
     subDashCard: {
         maxWidth: scale(150),
