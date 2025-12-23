@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StyleSheet, useWindowDimensions } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, useWindowDimensions, Pressable } from 'react-native'
 import React,{useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Header from '@/components/Header'
@@ -8,7 +8,7 @@ import { color } from '@/constants/colors';
 import AttendenceCard from '@/components/AttendenceCard';
 import {Calendar,LocaleConfig} from 'react-native-calendars';
 import AttendenceEvent from '@/components/AttendenceEvent';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
   export type cardTypes = {
@@ -35,6 +35,7 @@ const Attendence = () => {
     const windowWidth = useWindowDimensions().width
     const windowHeight = useWindowDimensions().height
     const [selected, setSelected] = useState('');
+     const router = useRouter();
 
   return (
     <SafeAreaView style={{ width: windowWidth, height: windowHeight }}>
@@ -65,10 +66,10 @@ const Attendence = () => {
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height:verticalScale(70),paddingHorizontal:12}} contentContainerStyle={{alignItems:'center',gap:25}}>
 
-        <View style={styles.mainLiks}>
+        <Pressable style={styles.mainLiks} onPress={() => router.push("/leave/historylist")}>
           <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color='#0c98e3ff' />
           <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11, color:color.textColour}}>Leave History</Text>
-        </View>
+        </Pressable>
         <View style={styles.mainLiks}>
           <MaterialIcons style={{position:'absolute',top:-12}} name="note-alt" size={34} color={color.primaryViolet} />
           <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Apply Leave</Text>
