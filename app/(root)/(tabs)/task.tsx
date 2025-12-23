@@ -13,6 +13,8 @@ import TaskCardsType2 from "@/components/TaskCardsType2";
 import TaskCard from "@/components/TaskCard";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { Video,UsersRound   } from 'lucide-react-native';
+import MyIcons from "@/components/MyIcons";
 
 export type TaskStatus = "pending" | "completed" | "progress" | "accept";
 export type cardItemsTypes = {
@@ -170,14 +172,16 @@ const Task = () => {
             </Text>
           </Pressable>
           <Pressable style={styles.mainLiks} onPress={() => router.push("/meeting/meetingList")}>
-            <MaterialIcons
-              name="video-call"
-              style={{ position: "absolute", top: -14 }}
-              size={38}
-              color={color.primaryGreen}
-            />
+            <Video  fill={color.primaryGreen} color={color.primaryGreen} size={38} style={{ position: "absolute", top: -14 }}  strokeWidth={1.2}/>
             <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
               My Meetings
+            </Text>
+          </Pressable>
+          <Pressable style={styles.mainLiks} onPress={() => router.push("/meeting/meetingList")}>
+
+            <Video  fill={color.primaryGreen} color={color.primaryGreen} size={38} style={{ position: "absolute", top: -14 }}  strokeWidth={1.2}/>
+            <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
+              My   Teams
             </Text>
           </Pressable>
         </ScrollView>
