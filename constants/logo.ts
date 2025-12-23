@@ -3,6 +3,8 @@ import visibile from "@/assets/icons/visibility_off.png"
 import avatar from "@/assets/icons/avatar.png"
 import group from '@/assets/icons/groups.svg'
 import meeting from '@/assets/icons/duo.svg'
+import editFile from '@/assets/icons/editFile.svg'
+import Update from '@/assets/icons/assignment_ind.svg'
 
 
 export const icons={
@@ -10,5 +12,7 @@ export const icons={
     visibile,
     avatar,
     group,
-    meeting
+    meeting,
+    editFile,
+    Update
 }

@@ -12,9 +12,8 @@ import TaskCardsType1 from "@/components/TaskCardsType1";
 import TaskCardsType2 from "@/components/TaskCardsType2";
 import TaskCard from "@/components/TaskCard";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { Video,UsersRound   } from 'lucide-react-native';
 import MyIcons from "@/components/MyIcons";
+import { icons } from "@/constants/logo";
 
 export type TaskStatus = "pending" | "completed" | "progress" | "accept";
 export type cardItemsTypes = {
@@ -155,31 +154,25 @@ const Task = () => {
           contentContainerStyle={{ alignItems: "center", gap: 25 }}
         >
           <Pressable style={styles.mainLiks} onPress={() => router.push("/dailyreport/dailyList")}>
-            <Fontisto name="person" style={{ position: "absolute", top: -13 }} size={30} color={color.primaryOrange} />
+            <MyIcons icon={icons.Update} color={color.primary} size={36} style={{ position: "absolute", top: scale(-11) }}/>
             <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
               Daily Update
             </Text>
           </Pressable>
           <Pressable style={styles.mainLiks} onPress={() => router.push("/tasks/notes")}>
-            <MaterialCommunityIcons
-              name="file-document-edit"
-              style={{ position: "absolute", top: -13 }}
-              size={30}
-              color={color.primary}
-            />
+              <MyIcons icon={icons.editFile} color={color.primaryViolet} size={32} style={{ position: "absolute", top: scale(-11) }}/>
             <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
               Task Notes
             </Text>
           </Pressable>
           <Pressable style={styles.mainLiks} onPress={() => router.push("/meeting/meetingList")}>
-            <Video  fill={color.primaryGreen} color={color.primaryGreen} size={38} style={{ position: "absolute", top: -14 }}  strokeWidth={1.2}/>
+              <MyIcons icon={icons.meeting} color={color.primaryGreen} size={38} style={{ position: "absolute", top: scale(-14) }}/>
             <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
               My Meetings
             </Text>
           </Pressable>
           <Pressable style={styles.mainLiks} onPress={() => router.push("/meeting/meetingList")}>
-
-            <Video  fill={color.primaryGreen} color={color.primaryGreen} size={38} style={{ position: "absolute", top: -14 }}  strokeWidth={1.2}/>
+            <MyIcons icon={icons.group} color={color.primaryOrange} size={46} style={{ position: "absolute", top:scale(-16) }}/>
             <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
               My   Teams
             </Text>

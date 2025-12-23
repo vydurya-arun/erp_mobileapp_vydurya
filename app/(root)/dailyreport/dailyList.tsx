@@ -11,7 +11,7 @@ const dailyList = () => {
       <Stack.Screen options={{ title: 'My Daily Updates' }} />
       <View style={styles.mainScreen}>
         <MyIcons size={50} color='red'  icon={icons.group}/>
-        <MyIcons size={50}  icon={icons.meeting}/>
+        <MyIcons size={50} color={color.primary} icon={icons.meeting}/>
       </View>
     </>
   )
