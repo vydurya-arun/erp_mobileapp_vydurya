@@ -87,16 +87,19 @@ export default function Index() {
               names="note-alt"
               title="Apply Leaves"
               colors={color.primary}
+              links="/leave/leaveapply"
             />
             <QuickCards
               names="home-work"
               title="WFH Leaves"
               colors="#FFC022"
+              links=""
             />
             <QuickCards
               names="phone"
               title="Contact HR"
               colors={color.primary}
+              links=""
             />
           </ScrollView>
         </View>

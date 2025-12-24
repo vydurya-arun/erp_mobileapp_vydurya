@@ -159,19 +159,14 @@ const Task = () => {
               Daily Update
             </Text>
           </Pressable>
-          <Pressable style={styles.mainLiks} onPress={() => router.push("/tasks/notes")}>
-              <MyIcons icon={icons.editFile} color={color.primaryViolet} size={32} style={{ position: "absolute", top: scale(-11) }}/>
-            <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
-              Task Notes
-            </Text>
-          </Pressable>
+
           <Pressable style={styles.mainLiks} onPress={() => router.push("/meeting/meetingList")}>
               <MyIcons icon={icons.meeting} color={color.primaryGreen} size={38} style={{ position: "absolute", top: scale(-14) }}/>
             <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
               My Meetings
             </Text>
           </Pressable>
-          <Pressable style={styles.mainLiks} onPress={() => router.push("/meeting/meetingList")}>
+          <Pressable style={styles.mainLiks} onPress={() => router.push("/team/MyTeam")}>
             <MyIcons icon={icons.group} color={color.primaryOrange} size={46} style={{ position: "absolute", top:scale(-16) }}/>
             <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
               My   Teams

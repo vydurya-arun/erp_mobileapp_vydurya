@@ -10,6 +10,8 @@ import {Calendar,LocaleConfig} from 'react-native-calendars';
 import AttendenceEvent from '@/components/AttendenceEvent';
 import { Link, useRouter } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MyIcons from '@/components/MyIcons';
+import { icons } from '@/constants/logo';
 
   export type cardTypes = {
     id:number,
@@ -67,13 +69,10 @@ const Attendence = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height:verticalScale(70),paddingHorizontal:12}} contentContainerStyle={{alignItems:'center',gap:25}}>
 
         <Pressable style={styles.mainLiks} onPress={() => router.push("/leave/historylist")}>
-          <MaterialCommunityIcons style={{position:'absolute',top:-12}} name="calendar-clock-outline" size={34} color='#0c98e3ff' />
+          
+          <MyIcons icon={icons.history} color={color.primary} size={36} style={{ position: "absolute", top: scale(-11) }}/>
           <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11, color:color.textColour}}>Leave History</Text>
         </Pressable>
-        <View style={styles.mainLiks}>
-          <MaterialIcons style={{position:'absolute',top:-12}} name="note-alt" size={34} color={color.primaryViolet} />
-          <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Apply Leave</Text>
-        </View>
         <View style={styles.mainLiks}>
           <MaterialCommunityIcons name="file-document"style={{position:'absolute',top:-12}}  size={34} color={color.primaryOrange} />
           <Text style={{textAlign:'center', fontFamily:'rubikMedium', fontSize:11}}>Daily Activity</Text>

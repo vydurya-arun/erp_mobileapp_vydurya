@@ -1,15 +1,18 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 import {scale,verticalScale,moderateScale} from 'react-native-size-matters'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { color } from '@/constants/colors';
+import { useRouter } from 'expo-router';
 
-const QuickCards = ({title,names,colors}:{title:string,names:any,colors:string}) => {
+const QuickCards = ({title,names,colors,links}:{title:string,names:any,colors:string,links:any}) => {
+
+    const router = useRouter()
   return (
-    <View style={styles.mainCard}>
+    <Pressable style={styles.mainCard} onPress={()=>router.push(links)}>
         <MaterialIcons name={names} size={28} color={colors} />
       <Text style={styles.title}>{title}</Text>
-    </View>
+    </Pressable>
   )
 }
 

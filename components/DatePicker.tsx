@@ -29,7 +29,7 @@ const DatePickerInput = ({label}:{label:string}) => {
     <>
       {/* INPUT TRIGGER */}
       <Pressable onPress={() => setShow(true)} style={{flex:1}}>
-        <Text style={{fontFamily:'rubikMedium', color:color.textColourLight}}>{label}</Text>
+        <Text style={{fontFamily:'rubikMedium', color:color.textColour}}>{label}</Text>
         <TextInput
           placeholder="DD/MM/YYYY"
           style={styles.Input}
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: moderateScale(10),
     paddingHorizontal: moderateScale(32),
-    height: moderateScale(44),
     boxShadow:'0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
     position:'relative',
     fontFamily:'rubikMedium',
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
   },
   icon:{
     position:'absolute',
-    top:moderateScale(30),
+    top:moderateScale(31),
     left:5
   },
 

@@ -5,6 +5,7 @@ import group from '@/assets/icons/groups.svg'
 import meeting from '@/assets/icons/duo.svg'
 import editFile from '@/assets/icons/editFile.svg'
 import Update from '@/assets/icons/assignment_ind.svg'
+import history from '@/assets/icons/history.svg'
 
 
 export const icons={
@@ -14,5 +15,6 @@ export const icons={
     group,
     meeting,
     editFile,
-    Update
+    Update,
+    history
 }

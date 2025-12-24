@@ -15,8 +15,8 @@ const LeaveCard = ({ cardData }: any) => {
                     <View style={{ backgroundColor: 'white', width: '98%', borderTopRightRadius: 12, borderBottomRightRadius: 12, padding: 12, display: 'flex', justifyContent: 'space-between' }}>
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{}} >
-                                <Text style={{ fontFamily: 'rubikMedium', fontSize: 24, lineHeight: 27 }}>{item.mainTitle}</Text>
-                                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, lineHeight: 15 }}>Applied On Dec 12, 2025</Text>
+                                <Text style={{ fontFamily: 'rubikMedium', fontSize: 24, lineHeight: 27,color:color.textColour }}>{item.mainTitle}</Text>
+                                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, lineHeight: 15,color:color.textColourLight }}>Applied On Dec 12, 2025</Text>
                             </View>
 
                             <BadgeV2 widths={70} title={item.status} textColor={item.mainColor} outColor={item.outColor} />
@@ -27,14 +27,14 @@ const LeaveCard = ({ cardData }: any) => {
                                     <MaterialCommunityIcons name='calendar' size={17} color={color.textColourLight} />
                                     <Text style={{ color: color.textColourLight }}>Date</Text>
                                 </View>
-                                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, paddingLeft: 2 }}>Dec 20 - Dec 22</Text>
+                                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, paddingLeft: 2,color:color.textColour }}>Dec 20 - Dec 22</Text>
                             </View>
                             <View style={{ width: 100, }}>
                                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 3 }}>
                                     <MaterialCommunityIcons name='clock' size={17} color={color.textColourLight} />
                                     <Text style={{ color: color.textColourLight }}>Duration</Text>
                                 </View>
-                                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, paddingLeft: 5 }}>3 Days</Text>
+                                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, paddingLeft: 5,color:color.textColour }}>3 Days</Text>
                             </View>
 
                         </View>
@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
     leaveCard: {
         backgroundColor: 'white',
         height: verticalScale(110),
-        marginHorizontal: scale(10),
+        marginHorizontal: scale(14),
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderRadius: moderateScale(12),
-        marginBottom: 10
+        marginBottom: 10,
     }
 })

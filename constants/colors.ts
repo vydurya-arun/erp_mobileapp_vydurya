@@ -7,8 +7,10 @@ export const color = {
   primaryGreenLight:"#D2F3DD",
   primaryRed:"#C45855",
   primaryRedLight:"#F3DEDD",
-  primaryViolet:"#8d27dbff",
+  primaryViolet:"#b056f5ff",
   primaryVioletLight:"#E8D4F8",
   primaryOrange:'#FFC022',
   primaryOrangeLight:'#FFF2D3',
+  secondaryGreen:'#7ac706ff',
+  buttonColor:'#0c98e3ff'
 };
