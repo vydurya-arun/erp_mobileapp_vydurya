@@ -4,7 +4,9 @@ import { Stack } from 'expo-router'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { color } from '@/constants/colors'
 import BadgeV2 from '@/components/BadgeV2'
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import LeaveCard from '@/components/LeaveCard'
+import DatePickerInput from '@/components/DatePicker'
+
 
 
 export type FilerTagsProps = {
@@ -15,10 +17,18 @@ export type FilerTagsProps = {
 }
 
 const FilerTags: FilerTagsProps[] = [
-  { id: 1, status: 'complete', tagcolor: color.primaryGreen, outline: color.primaryGreenLight },
-  { id: 2, status: 'Pending', tagcolor: color.primary, outline: color.primarylight },
-  { id: 3, status: 'Overdue', tagcolor: color.primaryRed, outline: color.primaryRedLight },
-  { id: 4, status: 'All', tagcolor: color.primaryViolet, outline: color.primaryVioletLight },
+  { id: 1, status: 'All', tagcolor: color.primary, outline: color.primarylight },
+  { id: 2, status: 'Accept', tagcolor: color.primaryGreen, outline: color.primaryGreenLight },
+  { id: 3, status: 'Progress', tagcolor: color.primaryOrange, outline: color.primaryOrangeLight },
+  { id: 4, status: 'Reject', tagcolor: color.primaryRed, outline: color.primaryRedLight },
+  
+]
+
+const LeaveCards =[
+  {id:1, mainTitle: 'Casual Leave', subTitle:'Applied on Dec 12, 2025', mainColor:color.primaryOrange,outColor:color.primaryOrangeLight, date:'Dec 20- Dec 25', duration :'3 Days',status:'Progress'},
+  {id:2, mainTitle: 'Sick Leave', subTitle:'Applied on Dec 12, 2025', mainColor:color.primaryRed,outColor:color.primaryRedLight, date:'Dec 20- Dec 25', duration :'1 Days',status:'Reject'},
+  {id:3, mainTitle: 'Duty Leave', subTitle:'Applied on Dec 12, 2025', mainColor:color.primaryGreen,outColor:color.primaryGreenLight, date:'Dec 20- Dec 25', duration :'2 Days',status:'Accept'},
+  {id:4, mainTitle: 'Casual Leave', subTitle:'Applied on Dec 12, 2025', mainColor:color.primaryGreen,outColor:color.primaryGreenLight, date:'Dec 20- Dec 25', duration :'5 Days',status:'Accept'},
 ]
 
 const historylist = () => {
@@ -30,8 +40,8 @@ const historylist = () => {
 
       <ScrollView style={{ maxWidth: windowWidth, maxHeight: windowHeight, width: 'auto', height: '100%' }}>
         <View style={styles.mainFilter}>
-          <TextInput placeholder='From' style={styles.Input} />
-          <TextInput placeholder='To' style={styles.Input} />
+          <DatePickerInput label='Select start date'/>
+          <DatePickerInput label='Select end date'/>
         </View>
 
         <View style={styles.filerTags}>
@@ -40,134 +50,8 @@ const historylist = () => {
           ))}
 
         </View>
-        <View style={styles.leaveCard}>
-          <View style={{ backgroundColor: color.primaryRed, width: '2%', borderTopLeftRadius: 12, borderBottomLeftRadius: 12, }}></View>
-          <View style={{ backgroundColor: 'white', width: '98%', borderTopRightRadius: 12, borderBottomRightRadius: 12, padding: 12, display:'flex',justifyContent:'space-between' }}>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                <Text style={{ fontFamily: 'rubikMedium', fontSize: 24, lineHeight: 27  }}>Casual Leave</Text>
-                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, lineHeight: 15 }}>Applied On Dec 12, 2025</Text>
-              </View>
+        <LeaveCard cardData={LeaveCards}/>
 
-              <BadgeV2 widths={70} title='Progress' textColor={color.primary} outColor={color.primarylight} />
-            </View>
-            <View style={{display:'flex', flexDirection:'row',gap:39 }}>
-              <View  style={{width:100, }}>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                  <MaterialCommunityIcons name='calendar' size={20} />
-                  <Text>Date</Text>
-                </View>
-                <Text>Dec 20 - Dec 22</Text>
-              </View>
-              <View  style={{width:100,}}>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                  <MaterialCommunityIcons name='clock' size={20} />
-                  <Text>Duration</Text>
-                </View>
-                <Text>3 Days</Text>
-              </View>
-
-            </View>
-
-
-          </View>
-        </View>
-        <View style={styles.leaveCard}>
-          <View style={{ backgroundColor: color.primaryRed, width: '2%', borderTopLeftRadius: 12, borderBottomLeftRadius: 12, }}></View>
-          <View style={{ backgroundColor: 'white', width: '98%', borderTopRightRadius: 12, borderBottomRightRadius: 12, padding: 12, display:'flex',justifyContent:'space-between' }}>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                <Text style={{ fontFamily: 'rubikMedium', fontSize: 24, lineHeight: 27  }}>Casual Leave</Text>
-                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, lineHeight: 15 }}>Applied On Dec 12, 2025</Text>
-              </View>
-
-              <BadgeV2 widths={70} title='Progress' textColor={color.primary} outColor={color.primarylight} />
-            </View>
-            <View style={{display:'flex', flexDirection:'row',gap:39 }}>
-              <View  style={{width:100, }}>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                  <MaterialCommunityIcons name='calendar' size={20} />
-                  <Text>Date</Text>
-                </View>
-                <Text>Dec 20 - Dec 22</Text>
-              </View>
-              <View  style={{width:100,}}>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                  <MaterialCommunityIcons name='clock' size={20} />
-                  <Text>Duration</Text>
-                </View>
-                <Text>3 Days</Text>
-              </View>
-
-            </View>
-
-
-          </View>
-        </View>
-        <View style={styles.leaveCard}>
-          <View style={{ backgroundColor: color.primaryRed, width: '2%', borderTopLeftRadius: 12, borderBottomLeftRadius: 12, }}></View>
-          <View style={{ backgroundColor: 'white', width: '98%', borderTopRightRadius: 12, borderBottomRightRadius: 12, padding: 12, display:'flex',justifyContent:'space-between' }}>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                <Text style={{ fontFamily: 'rubikMedium', fontSize: 24, lineHeight: 27  }}>Casual Leave</Text>
-                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, lineHeight: 15 }}>Applied On Dec 12, 2025</Text>
-              </View>
-
-              <BadgeV2 widths={70} title='Progress' textColor={color.primary} outColor={color.primarylight} />
-            </View>
-            <View style={{display:'flex', flexDirection:'row',gap:39 }}>
-              <View  style={{width:100, }}>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                  <MaterialCommunityIcons name='calendar' size={20} />
-                  <Text>Date</Text>
-                </View>
-                <Text>Dec 20 - Dec 22</Text>
-              </View>
-              <View  style={{width:100,}}>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                  <MaterialCommunityIcons name='clock' size={20} />
-                  <Text>Duration</Text>
-                </View>
-                <Text>3 Days</Text>
-              </View>
-
-            </View>
-
-
-          </View>
-        </View>
-        <View style={styles.leaveCard}>
-          <View style={{ backgroundColor: color.primaryRed, width: '2%', borderTopLeftRadius: 12, borderBottomLeftRadius: 12, }}></View>
-          <View style={{ backgroundColor: 'white', width: '98%', borderTopRightRadius: 12, borderBottomRightRadius: 12, padding: 12, display:'flex',justifyContent:'space-between' }}>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-                <Text style={{ fontFamily: 'rubikMedium', fontSize: 24, lineHeight: 27  }}>Casual Leave</Text>
-                <Text style={{ fontFamily: 'rubikRegular', fontSize: 14, lineHeight: 15 }}>Applied On Dec 12, 2025</Text>
-              </View>
-
-              <BadgeV2 widths={70} title='Progress' textColor={color.primary} outColor={color.primarylight} />
-            </View>
-            <View style={{display:'flex', flexDirection:'row',gap:39 }}>
-              <View  style={{width:100, }}>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                  <MaterialCommunityIcons name='calendar' size={20} />
-                  <Text>Date</Text>
-                </View>
-                <Text>Dec 20 - Dec 22</Text>
-              </View>
-              <View  style={{width:100,}}>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                  <MaterialCommunityIcons name='clock' size={20} />
-                  <Text>Duration</Text>
-                </View>
-                <Text>3 Days</Text>
-              </View>
-
-            </View>
-
-
-          </View>
-        </View>
 
       </ScrollView>
 
@@ -191,7 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(12),
     display: 'flex',
     flexDirection: 'row',
-    gap: moderateScale(10)
+    gap: moderateScale(10),
   },
   filerTags: {
     display: 'flex',
@@ -200,14 +84,5 @@ const styles = StyleSheet.create({
     gap: 6,
     marginHorizontal: scale(10),
   },
-  leaveCard: {
-    backgroundColor: 'white',
-    height: verticalScale(110),
-    marginHorizontal: scale(10),
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderRadius: moderateScale(12),
-    marginBottom:10
-  }
+
 })
