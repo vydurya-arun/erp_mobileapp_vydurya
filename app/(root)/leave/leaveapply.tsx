@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   ApplyBtn: {
     backgroundColor: color.buttonColor,
-    height: verticalScale(45),
+    height:verticalScale(36),
     width: '100%',
     borderRadius: moderateScale(12),
     alignItems: 'center',

@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     bottom: verticalScale(16),
     alignSelf: 'center',
     backgroundColor: color.buttonColor,
-    height: verticalScale(45),
+    height:verticalScale(36),
     width: '90%',
     borderRadius: moderateScale(12),
     alignItems: 'center',

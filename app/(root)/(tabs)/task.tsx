@@ -14,6 +14,7 @@ import TaskCard from "@/components/TaskCard";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import MyIcons from "@/components/MyIcons";
 import { icons } from "@/constants/logo";
+import ActionButton from "@/components/ActionButton";
 
 export type TaskStatus = "pending" | "completed" | "progress" | "accept";
 export type cardItemsTypes = {
@@ -153,25 +154,32 @@ const Task = () => {
           style={{ height: verticalScale(70), paddingHorizontal: 12 }}
           contentContainerStyle={{ alignItems: "center", gap: 25 }}
         >
-          <Pressable style={styles.mainLiks} onPress={() => router.push("/dailyreport/dailyList")}>
-            <MyIcons icon={icons.Update} color={color.primary} size={36} style={{ position: "absolute", top: scale(-11) }}/>
-            <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
-              Daily Update
-            </Text>
-          </Pressable>
 
-          <Pressable style={styles.mainLiks} onPress={() => router.push("/meeting/meetingList")}>
-              <MyIcons icon={icons.meeting} color={color.primaryGreen} size={38} style={{ position: "absolute", top: scale(-14) }}/>
-            <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
-              My Meetings
-            </Text>
-          </Pressable>
-          <Pressable style={styles.mainLiks} onPress={() => router.push("/team/MyTeam")}>
-            <MyIcons icon={icons.group} color={color.primaryOrange} size={46} style={{ position: "absolute", top:scale(-16) }}/>
-            <Text style={{ textAlign: "center", fontFamily: "rubikMedium", fontSize: 11, color: color.textColour }}>
-              My   Teams
-            </Text>
-          </Pressable>
+          <ActionButton
+          label="Daily Update"
+          icon={(size:number, color:string) => (
+            <MyIcons icon={icons.Update} size={size} color={color} />
+          )}
+          iconColor={color.primary}
+          onPress={() => router.push("/dailyreport/dailyList")}
+        />
+          <ActionButton
+          label="My Meetings"
+          icon={(size:number, color:string) => (
+            <MyIcons icon={icons.meeting} size={35} color={color} />
+          )}
+          iconColor={color.primaryGreen}
+          onPress={() => router.push("/meeting/meetingList")}
+        />
+          <ActionButton
+          label="My     Teams"
+          icon={(size:number, color:string) => (
+            <MyIcons icon={icons.group} size={38} color={color} />
+          )}
+          iconColor={color.primaryOrange}
+          onPress={() => router.push("/team/MyTeam")}
+        />
+
         </ScrollView>
         <View style={styles.recentTitle}>
           <Text style={styles.sectionTitle}>Recent Tasks</Text>
@@ -241,15 +249,5 @@ const styles = StyleSheet.create({
     display: "flex",
     gap: 7,
   },
-  mainLiks: {
-    width: scale(50),
-    height: scale(50),
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    paddingBottom: 7,
-    backgroundColor: "white",
-    borderRadius: 60,
-    position: "relative",
-  },
+
 });
