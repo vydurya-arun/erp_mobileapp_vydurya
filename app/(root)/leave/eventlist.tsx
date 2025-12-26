@@ -111,15 +111,8 @@ const styles = StyleSheet.create({
   },
   filterSection: {
     padding: moderateScale(16),
-    backgroundColor: 'white',
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
-    marginBottom: 16,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
   dateRow: {
     flexDirection: 'row',
@@ -138,13 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: color.textColour,
   },
-  calendarContainer: {
-    marginHorizontal: moderateScale(16),
-    borderRadius: 12,
-    overflow: 'hidden',
-    marginBottom: 20,
-    elevation: 2
-  },
+
   listContainer: {
     paddingHorizontal: moderateScale(16),
   },

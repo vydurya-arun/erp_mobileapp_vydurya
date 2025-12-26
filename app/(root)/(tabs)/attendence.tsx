@@ -17,6 +17,8 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 const dummyEvents: EventItem[] = [
   { id: '1', title: 'New Year', date: '2025-01-01', type: 'Holiday', description: 'Public Holiday' },
   { id: '2', title: 'Team Sync', date: '2025-01-10', type: 'Meeting', description: 'Weekly team sync up' },
+  { id: '3', title: 'Project Deadline', date: '2025-01-15', type: 'Work', description: 'Submit final report' },
+  { id: '4', title: 'Project Deadline', date: '2025-01-15', type: 'Work', description: 'Submit final report' },
 ];
 
 export type cardTypes = {
@@ -45,6 +47,34 @@ const Attendence = () => {
   const [selected, setSelected] = useState('');
   const router = useRouter();
 
+  // Define marker colors
+  const importantColor = color.primaryRed;
+  const companyColor = color.primary;
+
+  // Static marked dates for demo
+  const markedEvents: any = {
+    '2025-12-28': { marked: true, dotColor: companyColor, activeOpacity: 0 },
+    '2025-12-31': { marked: true, dotColor: importantColor, activeOpacity: 0 },
+    '2025-01-01': { marked: true, dotColor: importantColor, activeOpacity: 0 },
+    '2025-01-15': { marked: true, dotColor: companyColor, activeOpacity: 0 },
+    '2025-01-26': { marked: true, dotColor: importantColor, activeOpacity: 0 },
+  };
+
+  // Merge selected date with marked events
+  const getMarkedDates = () => {
+    const marks = { ...markedEvents };
+    if (selected) {
+      marks[selected] = {
+        ...(marks[selected] || {}),
+        selected: true,
+        disableTouchEvent: true,
+        selectedColor: color.primary,
+        selectedTextColor: 'white'
+      };
+    }
+    return marks;
+  };
+
   return (
     <SafeAreaView style={{ width: windowWidth, height: windowHeight }}>
       <ScrollView
@@ -58,13 +88,18 @@ const Attendence = () => {
         </View>
         <View style={styles.calendarContain}>
           <Calendar
+            enableSwipeMonths={true}
             onDayPress={day => {
               setSelected(day.dateString);
             }}
-            markedDates={{
-              [selected]: { selected: true, disableTouchEvent: true, selectedColor: color.primary }
-            }}
+            markedDates={getMarkedDates()}
             style={styles.calendarStyle}
+            theme={{
+              selectedDayBackgroundColor: color.primary,
+              todayTextColor: color.primary,
+              arrowColor: color.primary,
+              dotColor: color.primary,
+            }}
           />
         </View>
         <View style={styles.recentTitle}>
@@ -111,7 +146,7 @@ const Attendence = () => {
             <Link style={{ color: color.primary }} href="/leave/eventlist">View More</Link>
           </View>
           {/* Displaying first two events as a preview */}
-          {dummyEvents.slice(0, 2).map(item => (
+          {dummyEvents.map(item => (
             <EventCard key={item.id} event={item} />
           ))}
         </View>
