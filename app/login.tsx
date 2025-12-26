@@ -1,33 +1,77 @@
-import React from "react";
+import { color } from "@/constants/colors";
+import { images } from "@/constants/image";
+import { icons } from "@/constants/logo";
+import { useResponsive } from "@/hooks/useResponsive";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import {
-  View,
-  Text,
-  ScrollView,
+  Alert,
   Image,
-  TextInput,
-  TouchableOpacity,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-  TouchableWithoutFeedback,
+  ScrollView,
+  StatusBar,
   StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
-import { images } from "@/constants/image";
-import { icons } from "@/constants/logo";
-import { color } from "@/constants/colors";
 import { moderateScale, scale } from "react-native-size-matters";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const router = useRouter();
+  const { isLandscape, isTablet, wp, hp, width, height } = useResponsive();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
-    router.push("/");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data: LoginFormData) => {
+    // console.log(data);
+    Alert.alert("Success", "Login Successful", [
+      { text: "OK", onPress: () => router.push("/") },
+    ]);
   };
+
+  // Dynamic calculations for responsive layout
+  const containerPadding = isTablet ? moderateScale(40) : moderateScale(16);
+  const logoSize = isTablet
+    ? moderateScale(180)
+    : isLandscape
+      ? moderateScale(100)
+      : moderateScale(130);
+
+  const inputMaxWidth = isTablet || isLandscape ? wp(40) : "100%";
+  const contentMaxWidth = isTablet ? 600 : 420;
 
   return (
     <SafeAreaView style={styles.safe}>
+      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.flex}
@@ -36,67 +80,143 @@ const Login = () => {
           <ScrollView
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.scrollContent}
+            contentContainerStyle={[
+              styles.scrollContent,
+              { paddingHorizontal: containerPadding, minHeight: isLandscape ? 'auto' : height },
+            ]}
           >
-            {/* Logo */}
-            <Image source={images.logo} resizeMode="contain" style={styles.logo} />
+            <View style={[
+              styles.mainContainer,
+              isLandscape && !isTablet ? styles.rowContainer : styles.columnContainer
+            ]}>
 
-            <Text style={styles.welcome}>WELCOME TO VYDURYA</Text>
+              {/* Left Section (Logo & Welcome) - Side by side in Landscape mobile */}
+              <View style={[
+                styles.headerSection,
+                isLandscape && !isTablet && styles.headerSectionLandscape
+              ]}>
+                <Image
+                  source={images.logo}
+                  resizeMode="contain"
+                  style={[styles.logo, { width: logoSize, height: logoSize }]}
+                />
+                <Text style={styles.welcome}>WELCOME TO VYDURYA</Text>
 
-            {/* Title */}
-            <View style={styles.header}>
-              <Text style={styles.title}>Employee Login Now</Text>
-              <Text style={styles.subtitle}>
-                Create an account or log in to explore Vydurya employee app
-              </Text>
+                <View style={styles.headerTextContainer}>
+                  <Text style={[styles.title, isTablet && styles.titleTablet]}>Employee Login Now</Text>
+                  <Text style={[styles.subtitle, isTablet && styles.subtitleTablet]}>
+                    Create an account or log in to explore Vydurya employee app
+                  </Text>
+                </View>
+              </View>
+
+              {/* Right/Bottom Section (Form) */}
+              <View style={[
+                styles.formSection,
+                isLandscape && !isTablet && styles.formSectionLandscape,
+                { maxWidth: isLandscape && !isTablet ? '50%' : contentMaxWidth }
+              ]}>
+                {/* Email */}
+                <View style={styles.inputBlock}>
+                  <Text style={[styles.label, isTablet && styles.labelTablet]}>Email</Text>
+                  <Controller
+                    control={control}
+                    name="email"
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <TextInput
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        placeholder="eg: example@gmail.com"
+                        style={[
+                          styles.input,
+                          isTablet && styles.inputTablet,
+                          errors.email && { borderColor: color.primaryRed }
+                        ]}
+                        placeholderTextColor={color.textColourLight}
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    )}
+                  />
+                  <Image
+                    source={icons.person}
+                    resizeMode="contain"
+                    style={[styles.inputIcon, isTablet && styles.inputIconTablet]}
+                  />
+                  {errors.email && (
+                    <Text style={styles.errorText}>{errors.email.message}</Text>
+                  )}
+                </View>
+
+                {/* Password */}
+                <View style={styles.inputBlock}>
+                  <Text style={[styles.label, isTablet && styles.labelTablet]}>Password</Text>
+                  <Controller
+                    control={control}
+                    name="password"
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <TextInput
+                        secureTextEntry={!showPassword}
+                        placeholder="******"
+                        style={[
+                          styles.input,
+                          isTablet && styles.inputTablet,
+                          errors.password && { borderColor: color.primaryRed }
+                        ]}
+                        placeholderTextColor={color.textColourLight}
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    )}
+                  />
+                  <TouchableOpacity
+                    onPress={() => setShowPassword(!showPassword)}
+                    style={{ position: 'absolute', right: moderateScale(16), top: moderateScale(38), padding: 5 }}
+                  >
+                    <Image
+                      source={icons.visibile}
+                      resizeMode="contain"
+                      style={{ width: isTablet ? moderateScale(28) : moderateScale(20), height: isTablet ? moderateScale(28) : moderateScale(20), tintColor: showPassword ? color.primary : color.textColourLight }}
+                    />
+                  </TouchableOpacity>
+                  {errors.password && (
+                    <Text style={styles.errorText}>{errors.password.message}</Text>
+                  )}
+                </View>
+
+                {/* Forgot password */}
+                <View style={styles.forgotWrapper}>
+                  <Text style={[styles.forgotText, isTablet && styles.forgotTextTablet]}>
+                    Forgot Password ?
+                  </Text>
+                </View>
+
+                {/* Login button */}
+                <TouchableOpacity
+                  style={[styles.loginBtn, isTablet && styles.loginBtnTablet]}
+                  onPress={handleSubmit(onSubmit)}
+                >
+                  <Text style={[styles.loginText, isTablet && styles.loginTextTablet]}>Login</Text>
+                </TouchableOpacity>
+
+                {/* Divider */}
+                <View style={styles.dividerRow}>
+                  <View style={styles.dividerLine} />
+                  <Text style={styles.dividerText}>Or login with</Text>
+                  <View style={styles.dividerLine} />
+                </View>
+
+                {/* Footer */}
+                <View style={styles.footer}>
+                  <Text style={[styles.footerText, isTablet && styles.footerTextTablet]}>
+                    Don’t have an account?
+                  </Text>
+                  <Text style={[styles.footerLink, isTablet && styles.footerLinkTablet]}> Contact HR.</Text>
+                </View>
+              </View>
             </View>
-
-            {/* Email */}
-            <View style={styles.inputBlock}>
-              <Text style={styles.label}>Email</Text>
-              <TextInput
-                keyboardType="email-address"
-                autoCapitalize="none"
-                placeholder="eg: example@gmail.com"
-                style={styles.input}
-              />
-              <Image source={icons.person} resizeMode="contain" style={styles.inputIcon} />
-            </View>
-
-            {/* Password */}
-            <View style={styles.inputBlock}>
-              <Text style={styles.label}>Password</Text>
-              <TextInput
-                secureTextEntry
-                placeholder="******"
-                style={styles.input}
-              />
-              <Image source={icons.visibile} resizeMode="contain" style={styles.inputIcon} />
-            </View>
-
-            {/* Forgot password */}
-            <View style={styles.forgotWrapper}>
-              <Text style={styles.forgotText}>Forgot Password ?</Text>
-            </View>
-
-            {/* Login button */}
-            <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
-              <Text style={styles.loginText}>Login</Text>
-            </TouchableOpacity>
-
-            {/* Divider */}
-            <View style={styles.dividerRow}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>Or login with</Text>
-              <View style={styles.dividerLine} />
-            </View>
-
-            {/* Footer */}
-            <View style={styles.footer}>
-              <Text style={styles.footerText}>Don’t have an account?</Text>
-              <Text style={styles.footerLink}> Contact HR.</Text>
-            </View>
-
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -111,139 +231,207 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-
   flex: {
     flex: 1,
   },
-
   scrollContent: {
     flexGrow: 1,
+    justifyContent: 'center',
+    paddingVertical: moderateScale(10), // Reduced from 20
+  },
+  mainContainer: {
+    flex: 1,
+    width: "100%",
     alignItems: "center",
-    paddingHorizontal: scale(16),
-    paddingVertical: moderateScale(10),
+    justifyContent: "flex-start",
   },
-
-  logo: {
-    width: 130,
-    height: 130,
+  columnContainer: {
+    flexDirection: "column",
   },
-
-  welcome: {
-    fontSize: 14,
-    fontFamily: "rubikMedium",
-  },
-
-  header: {
+  rowContainer: {
+    flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    justifyContent: "space-around",
+  },
+  headerSection: {
+    alignItems: "center",
+    marginBottom: moderateScale(20), // Reduced from 30
     paddingHorizontal: scale(5),
+    width: "100%",
   },
-
+  headerSectionLandscape: {
+    width: "45%",
+    marginBottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTextContainer: {
+    alignItems: "center",
+    marginTop: moderateScale(5), // Reduced from 10
+  },
+  logo: {
+    // Width/Height are dynamic
+  },
+  welcome: {
+    fontSize: moderateScale(14),
+    fontFamily: "rubikMedium",
+    marginTop: moderateScale(-10), // Negative margin to pull it closer to logo
+    letterSpacing: 1,
+  },
   title: {
-    fontSize: moderateScale(30),
+    fontSize: moderateScale(28),
     textAlign: "center",
     color: "#1F2937",
     fontFamily: "RubikSemiBold",
+    marginTop: moderateScale(5),
   },
-
+  titleTablet: {
+    fontSize: moderateScale(36),
+  },
   subtitle: {
     fontSize: moderateScale(14),
     color: color.textColourLight,
     textAlign: "center",
     fontFamily: "rubikLight",
+    marginTop: moderateScale(5),
+    maxWidth: '80%',
   },
-
+  subtitleTablet: {
+    fontSize: moderateScale(18),
+  },
+  formSection: {
+    width: "100%",
+    alignItems: "center",
+  },
+  formSectionLandscape: {
+    width: "50%",
+    alignItems: "center",
+  },
   inputBlock: {
     width: "100%",
-    maxWidth: 420,
-    marginBottom: 20,
-    paddingHorizontal: 24,
+    marginBottom: moderateScale(20),
     position: "relative",
   },
-
   label: {
-    fontSize: 16,
+    fontSize: moderateScale(14),
     color: color.textColourLight,
-    marginBottom: 4,
+    marginBottom: moderateScale(8),
     fontFamily: "Rubik-Light",
   },
-
+  labelTablet: {
+    fontSize: moderateScale(18),
+  },
   input: {
-    height: 48,
+    height: moderateScale(48),
     borderWidth: 0.5,
     borderColor: color.textColourLight,
-    borderRadius: 8,
-    paddingHorizontal: 20,
-    paddingRight: 48,
+    borderRadius: moderateScale(8),
+    paddingHorizontal: moderateScale(16),
+    paddingRight: moderateScale(48),
+    fontSize: moderateScale(14),
+    color: color.textColour,
+    fontFamily: "rubikRegular",
   },
-
+  inputTablet: {
+    height: moderateScale(60),
+    borderRadius: moderateScale(12),
+    fontSize: moderateScale(18),
+  },
   inputIcon: {
-    width: 20,
-    height: 20,
+    width: moderateScale(20),
+    height: moderateScale(20),
     position: "absolute",
-    right: 36,
-    top: 38,
+    right: moderateScale(16),
+    top: moderateScale(38), // Adjusted for alignment
   },
-
+  inputIconTablet: {
+    width: moderateScale(28),
+    height: moderateScale(28),
+    top: moderateScale(48),
+  },
   forgotWrapper: {
     width: "100%",
-    maxWidth: 420,
-    paddingHorizontal: 24,
-    marginBottom: 24,
+    marginBottom: moderateScale(24),
   },
-
   forgotText: {
     textAlign: "right",
     color: color.primary,
     fontFamily: "Rubik-Medium",
+    fontSize: moderateScale(14),
   },
-
+  forgotTextTablet: {
+    fontSize: moderateScale(18),
+  },
   loginBtn: {
-    width: "90%",
-    maxWidth: 420,
-    height: 48,
-    backgroundColor:color.primary,
-    borderRadius: 8,
+    width: "100%",
+    height: moderateScale(48),
+    backgroundColor: color.primary,
+    borderRadius: moderateScale(8),
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 24,
+    marginBottom: moderateScale(24),
+    shadowColor: color.primary,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
-
+  loginBtnTablet: {
+    height: moderateScale(60),
+    borderRadius: moderateScale(12),
+  },
   loginText: {
     color: "#FFFFFF",
-    fontSize: 18,
+    fontSize: moderateScale(16),
     fontFamily: "Rubik-SemiBold",
   },
-
+  loginTextTablet: {
+    fontSize: moderateScale(20),
+  },
   dividerRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    marginBottom: 16,
+    gap: moderateScale(12),
+    marginBottom: moderateScale(16),
   },
-
   dividerLine: {
     height: 0.5,
-    width: 96,
+    flex: 1, // Dynamic width
+    maxWidth: moderateScale(100),
     backgroundColor: color.textColourLight,
   },
-
   dividerText: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontFamily: "rubikLight",
+    color: color.textColour,
   },
-
   footer: {
     flexDirection: "row",
+    alignItems: 'center',
   },
-
   footerText: {
     color: color.textColourLight,
     fontFamily: "rubikMedium",
+    fontSize: moderateScale(14),
   },
-
+  footerTextTablet: {
+    fontSize: moderateScale(16),
+  },
   footerLink: {
     color: color.primary,
     fontFamily: "rubikMedium",
+    fontSize: moderateScale(14),
   },
+  footerLinkTablet: {
+    fontSize: moderateScale(16),
+  },
+  errorText: {
+    color: color.primaryRed,
+    fontSize: moderateScale(12),
+    marginTop: moderateScale(4),
+    fontFamily: "rubikRegular",
+  }
 });
