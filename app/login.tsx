@@ -1,4 +1,6 @@
 import LoginSuccessModal from "@/components/LoginSuccessModal";
+import MyIcons from "@/components/MyIcons";
+import Toast from "@/components/Toast";
 import { color } from "@/constants/colors";
 import { images } from "@/constants/image";
 import { icons } from "@/constants/logo";
@@ -26,7 +28,7 @@ import { moderateScale, scale } from "react-native-size-matters";
 import { z } from "zod";
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z.email({ message: "Invalid email address" }),
   password: z
     .string()
     .min(6, { message: "Password must be at least 6 characters" }),
@@ -39,6 +41,15 @@ const Login = () => {
   const { isLandscape, isTablet, wp, hp, width, height } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [toast, setToast] = useState({ visible: false, type: 'success' as 'success' | 'error' | 'info', title: '', message: '' });
+
+  const showToast = (type: 'success' | 'error' | 'info', title: string, message: string) => {
+    setToast({ visible: true, type, title, message });
+  };
+
+  const handleForgotPassword = () => {
+    showToast('info', 'Feature Unavailable', 'This feature is coming soon!');
+  };
 
   const {
     control,
@@ -53,11 +64,17 @@ const Login = () => {
   });
 
   const onSubmit = (data: LoginFormData) => {
+    console.log(data);
     setShowSuccessModal(true);
     setTimeout(() => {
       setShowSuccessModal(false);
       router.push("/");
     }, 1000);
+  };
+
+  const onError = (errors: any) => {
+    const errorMessage = errors.email?.message || errors.password?.message || "Invalid input";
+    showToast('error', 'Validation Error', errorMessage);
   };
 
   // Dynamic calculations for responsive layout
@@ -118,6 +135,8 @@ const Login = () => {
                 isLandscape && !isTablet && styles.formSectionLandscape,
                 { maxWidth: isLandscape && !isTablet ? '50%' : contentMaxWidth }
               ]}>
+
+
                 {/* Email */}
                 <View style={styles.inputBlock}>
                   <Text style={[styles.label, isTablet && styles.labelTablet]}>Email</Text>
@@ -141,11 +160,9 @@ const Login = () => {
                       />
                     )}
                   />
-                  <Image
-                    source={icons.person}
-                    resizeMode="contain"
-                    style={[styles.inputIcon, isTablet && styles.inputIconTablet]}
-                  />
+                  <View style={[styles.inputIcon, isTablet && styles.inputIconTablet]}>
+                    <MyIcons icon={icons.person} size={isTablet ? moderateScale(28) : moderateScale(24)} color={color.textColourLight} />
+                  </View>
                   {errors.email && (
                     <Text style={styles.errorText}>{errors.email.message}</Text>
                   )}
@@ -177,10 +194,10 @@ const Login = () => {
                     onPress={() => setShowPassword(!showPassword)}
                     style={{ position: 'absolute', right: moderateScale(16), top: moderateScale(38), padding: 5 }}
                   >
-                    <Image
-                      source={icons.visibile}
-                      resizeMode="contain"
-                      style={{ width: isTablet ? moderateScale(28) : moderateScale(20), height: isTablet ? moderateScale(28) : moderateScale(20), tintColor: showPassword ? color.primary : color.textColourLight }}
+                    <MyIcons
+                      icon={showPassword ? icons.visibileon : icons.visibileoff}
+                      size={isTablet ? moderateScale(28) : moderateScale(22)}
+                      color={showPassword ? color.primary : color.textColourLight}
                     />
                   </TouchableOpacity>
                   {errors.password && (
@@ -190,15 +207,17 @@ const Login = () => {
 
                 {/* Forgot password */}
                 <View style={styles.forgotWrapper}>
-                  <Text style={[styles.forgotText, isTablet && styles.forgotTextTablet]}>
-                    Forgot Password ?
-                  </Text>
+                  <TouchableOpacity onPress={handleForgotPassword}>
+                    <Text style={[styles.forgotText, isTablet && styles.forgotTextTablet]}>
+                      Forgot Password ?
+                    </Text>
+                  </TouchableOpacity>
                 </View>
 
                 {/* Login button */}
                 <TouchableOpacity
                   style={[styles.loginBtn, isTablet && styles.loginBtnTablet]}
-                  onPress={handleSubmit(onSubmit)}
+                  onPress={handleSubmit(onSubmit, onError)}
                 >
                   <Text style={[styles.loginText, isTablet && styles.loginTextTablet]}>Login</Text>
                 </TouchableOpacity>
@@ -223,6 +242,13 @@ const Login = () => {
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
       <LoginSuccessModal visible={showSuccessModal} />
+      <Toast
+        visible={toast.visible}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+        onDismiss={() => setToast(prev => ({ ...prev, visible: false }))}
+      />
     </SafeAreaView>
   );
 };
@@ -436,5 +462,6 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     marginTop: moderateScale(4),
     fontFamily: "rubikRegular",
+    fontStyle: "italic",
   }
 });
