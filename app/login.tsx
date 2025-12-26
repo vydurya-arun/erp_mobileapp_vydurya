@@ -1,3 +1,4 @@
+import LoginSuccessModal from "@/components/LoginSuccessModal";
 import { color } from "@/constants/colors";
 import { images } from "@/constants/image";
 import { icons } from "@/constants/logo";
@@ -7,7 +8,6 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-  Alert,
   Image,
   Keyboard,
   KeyboardAvoidingView,
@@ -19,14 +19,14 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, scale } from "react-native-size-matters";
 import { z } from "zod";
 
 const loginSchema = z.object({
-  email: z.email({ message: "Invalid email address" }),
+  email: z.string().email({ message: "Invalid email address" }),
   password: z
     .string()
     .min(6, { message: "Password must be at least 6 characters" }),
@@ -38,6 +38,7 @@ const Login = () => {
   const router = useRouter();
   const { isLandscape, isTablet, wp, hp, width, height } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const {
     control,
@@ -52,10 +53,11 @@ const Login = () => {
   });
 
   const onSubmit = (data: LoginFormData) => {
-    // console.log(data);
-    Alert.alert("Success", "Login Successful", [
-      { text: "OK", onPress: () => router.push("/") },
-    ]);
+    setShowSuccessModal(true);
+    setTimeout(() => {
+      setShowSuccessModal(false);
+      router.push("/");
+    }, 1000);
   };
 
   // Dynamic calculations for responsive layout
@@ -220,6 +222,7 @@ const Login = () => {
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
+      <LoginSuccessModal visible={showSuccessModal} />
     </SafeAreaView>
   );
 };
