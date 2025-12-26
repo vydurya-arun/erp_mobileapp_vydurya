@@ -7,6 +7,7 @@ import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { TouchableOpacity } from 'react-native'
 
 
 
@@ -87,10 +88,18 @@ const historylist = () => {
         </View>
 
         <View style={styles.filerTags}>
+
           {FilerTags.map((item: FilerTagsProps, index: number) => (
-            <Pressable key={index} onPress={() => setActiveFilter(item.status)} style={{ opacity: activeFilter === item.status ? 1 : 0.5 }}>
-              <BadgeV2 widths={70} title={item.status} textColor={item.tagcolor} outColor={item.outline} />
-            </Pressable>
+              <TouchableOpacity key={index} onPress={() => setActiveFilter(item.status)}>
+                  <View style={{ opacity: activeFilter === item.status ? 1 : 0.5 }}>
+                      <BadgeV2
+                          title={item.status}
+                          textColor={activeFilter === item.status ? item.tagcolor : color.textColourLight}
+                          outColor={activeFilter === item.status ? item.outline : '#F3F4F6'}
+                          widths={scale(60)}
+                      />
+                  </View>
+              </TouchableOpacity>
           ))}
 
           {/* Reset Button */}
