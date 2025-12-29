@@ -4,6 +4,7 @@ import Toast from "@/components/Toast";
 import { color } from "@/constants/colors";
 import { images } from "@/constants/image";
 import { icons } from "@/constants/logo";
+import { useLogin } from "@/controller/authController";
 import { useResponsive } from "@/hooks/useResponsive";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
@@ -38,6 +39,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const router = useRouter();
+  const loginMutation = useLogin()
   const { isLandscape, isTablet, wp, hp, width, height } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -64,12 +66,19 @@ const Login = () => {
   });
 
   const onSubmit = (data: LoginFormData) => {
-    console.log(data);
-    setShowSuccessModal(true);
-    setTimeout(() => {
-      setShowSuccessModal(false);
-      router.push("/");
-    }, 1000);
+    loginMutation.mutate(data, {
+      onSuccess: () => {
+        setShowSuccessModal(true);
+        setTimeout(() => {
+          setShowSuccessModal(false);
+          router.push("/");
+        }, 1000);
+      },
+      onError:(err:any)=>{
+        const errorMessage = err?.message || "Login Fail";
+        showToast('error', 'Login Error', errorMessage);
+      }
+    });
   };
 
   const onError = (errors: any) => {

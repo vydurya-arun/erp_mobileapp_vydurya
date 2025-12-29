@@ -32,8 +32,8 @@ const TabsLayout = () => {
             position:'absolute',
             borderTopColor:'#0061ff1a',
             borderTopWidth:1,
-            minHeight:verticalScale(61),
-            paddingTop: verticalScale(10)
+            minHeight:71,
+            paddingTop: 10
         }
     }}>
         <Tabs.Screen 
@@ -42,7 +42,7 @@ const TabsLayout = () => {
                 title:'Home',
                 headerShown:false,
                 tabBarIcon:({focused})=>(
-                <TabIcon focused={focused} title='Home' name='home-filled' sizes={moderateScale(26)}/>
+                <TabIcon focused={focused} title='Home' name='home-filled' sizes={26}/>
                 )
             }}
         />
@@ -52,7 +52,7 @@ const TabsLayout = () => {
                 title:'Attendance',
                 headerShown:false,
                 tabBarIcon:({focused})=>(
-                <TabIcon focused={focused} title='Attendence' name="calendar-today" sizes={moderateScale(24)}/>
+                <TabIcon focused={focused} title='Attendence' name="calendar-today" sizes={24}/>
                 )
             }}
         />
@@ -62,7 +62,7 @@ const TabsLayout = () => {
                 title:'Task',
                 headerShown:false,
                 tabBarIcon:({focused})=>(
-                <TabIcon focused={focused} title='Task' name="task-alt" sizes={moderateScale(26)}/>
+                <TabIcon focused={focused} title='Task' name="task-alt" sizes={26}/>
                 )
             }}
         />
@@ -72,7 +72,7 @@ const TabsLayout = () => {
                 title:'Profile',
                 headerShown:false,
                 tabBarIcon:({focused})=>(
-                <TabIcon focused={focused} title='profile' name="person" sizes={moderateScale(26)}/>
+                <TabIcon focused={focused} title='profile' name="person" sizes={26}/>
                 )
             }}
         />
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
   container: {
     display:'flex',
     flexDirection: "column",
-    height: verticalScale(40),      
-    width: scale(56) ,         
+    height:40,      
+    width: 66 ,         
     alignItems: "center",
     justifyContent: "center",
     gap:3

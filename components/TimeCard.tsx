@@ -2,11 +2,18 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { color } from "@/constants/colors";
+import { useCheckInController, useCheckOutController } from "@/controller/employeeController";
 
 const TimeCard = () => {
   const [checkedIn, setCheckedIn] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [mounted, setMounted] = useState(false);
+  const [attendance, setAttendance] = useState(null);
+  const [lastSession, setLastSession] = useState(null);
+
+    const CheckInMutation = useCheckInController();
+    const CheckOutMutation = useCheckInController();
+
 
   useEffect(() => {
     setMounted(true);
@@ -32,12 +39,50 @@ const TimeCard = () => {
       year: "numeric",
     });
 
+  const handleCheckIn = async () => {
+    try {
+      const data = await CheckInMutation.mutateAsync();
+      if (data?.success && data?.attendance) {
+        const { attendance } = data;
+        setAttendance(attendance);
+        const sessions = attendance.sessions || [];
+        if (sessions.length > 0) {
+          const last = sessions[sessions.length - 1];
+          setLastSession(last);
+          setCheckedIn(!last.checkOut);
+        }
+      }
+    } catch (error) {
+      console.error("Error during check-in:", error);
+    } 
+  };
+
+  const handleCheckOut = async () => {
+    try {
+      
+      const data = await CheckOutMutation.mutateAsync();
+      if (data?.success && data?.attendance) {
+        const { attendance } = data;
+        setAttendance(attendance);
+        const sessions = attendance.sessions || [];
+        if (sessions.length > 0) {
+          const last = sessions[sessions.length - 1];
+          setLastSession(last);
+          setCheckedIn(!last.checkOut);
+        }
+      }
+    } catch (error) {
+      console.error("Error during check-out:", error);
+    }
+  };
+
+
   return (
     <View style={styles.card}>
       <Text style={styles.dateText}>{mounted ? formatDate(currentTime) : ""}</Text>
       <Text style={styles.timeText}>{mounted ? formatTime(currentTime) : "--:--:--"}</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttomText}>Check In</Text>
+      <TouchableOpacity style={styles.button} disabled={CheckInMutation.isPending || CheckOutMutation.isPending} onPress={() => (checkedIn ? handleCheckOut() : handleCheckIn())}>
+        <Text style={styles.buttomText}>{checkedIn ? "Check Out" : "Check In"}</Text> 
       </TouchableOpacity>
     </View>
   );
@@ -53,10 +98,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     borderRadius: 12,
     padding: 10,
-    boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+    shadowColor: "#6c6c6cff",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
   },
   dateText: {
-    fontWeight: "semibold",
+    fontWeight: 600,
     fontSize: 16,
     color: "#6C7278",
   },
