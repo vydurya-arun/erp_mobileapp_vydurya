@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import { scale, verticalScale } from "react-native-size-matters";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { cardItemsTypes } from "@/app/(protected)/(tabs)/task";
 import { color } from "@/constants/colors";
-import { cardItemsTypes } from "@/app/(root)/(tabs)/task";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { scale, verticalScale } from "react-native-size-matters";
 
 type TaskCards = {
     card: cardItemsTypes[];

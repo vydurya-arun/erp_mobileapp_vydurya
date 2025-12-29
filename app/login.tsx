@@ -4,7 +4,7 @@ import Toast from "@/components/Toast";
 import { color } from "@/constants/colors";
 import { images } from "@/constants/image";
 import { icons } from "@/constants/logo";
-import { useLogin } from "@/controller/authController";
+import { useAuth } from "@/context/AuthProvider";
 import { useResponsive } from "@/hooks/useResponsive";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
@@ -39,7 +39,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const router = useRouter();
-  const loginMutation = useLogin()
+  const { logIn } = useAuth();
   const { isLandscape, isTablet, wp, hp, width, height } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -65,21 +65,31 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    loginMutation.mutate(data, {
-      onSuccess: () => {
-        setShowSuccessModal(true);
-        setTimeout(() => {
-          setShowSuccessModal(false);
-          router.push("/");
-        }, 1000);
-      },
-      onError:(err:any)=>{
-        const errorMessage = err?.message || "Login Fail";
-        showToast('error', 'Login Error', errorMessage);
-      }
-    });
-  };
+const onSubmit = async (data: LoginFormData) => {
+  try {
+    const res = await logIn(data);
+
+    if (!res.success) {
+      showToast("error", "Login Failed", res.message);
+      return;
+    }
+
+    setShowSuccessModal(true);
+
+    setTimeout(() => {
+      setShowSuccessModal(false);
+      router.replace("/");
+    }, 800);
+
+  } catch (err: any) {
+    const message =
+      err?.response?.data?.message ||
+      err?.message ||
+      "Something went wrong";
+
+    showToast("error", "Login Error", message);
+  }
+};
 
   const onError = (errors: any) => {
     const errorMessage = errors.email?.message || errors.password?.message || "Invalid input";

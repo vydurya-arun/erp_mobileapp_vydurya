@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { scale } from 'react-native-size-matters';
+import { PersonalDataItem } from '@/app/(protected)/(tabs)/profile';
 import { color } from '@/constants/colors';
-import { PersonalDataItem } from '@/app/(root)/(tabs)/profile';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
 type PersonCardProps = {
     profile: PersonalDataItem[];

@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { cardTypes } from '@/app/(protected)/(tabs)/attendence';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { cardTypes } from '@/app/(root)/(tabs)/attendence';
 
 type cardDataTypes={
     cardData : cardTypes[]

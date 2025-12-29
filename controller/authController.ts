@@ -9,50 +9,46 @@ export interface LoginCredentials {
 
 export interface LoginResponse {
   success: boolean;
-  user: {
+  data: {
     id: string;
-    email: string;
     name: string;
+    email: string;
+    role: string;
+    type: string;
+    token: string;
   };
   message: string;
 }
 
-
-
+// ✅ LOGIN
 export const useLogin = () => {
   const queryClient = useQueryClient();
 
   return useMutation<LoginResponse, Error, LoginCredentials>({
-    mutationFn: async (credentials: LoginCredentials) => {
+    mutationFn: async (credentials) => {
       const res = await axiosPublic.post<LoginResponse>(
         API_URL.LOGIN_URL,
         credentials,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
       return res.data;
     },
 
     onSuccess: (data) => {
       if (data.success) {
-        queryClient.setQueryData(["auth"], data.user);
+        queryClient.setQueryData(["auth"], data.data);
       }
     },
   });
 };
 
-
+// ✅ LOGOUT
 export const useLogout = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<{ success: boolean }, Error, void>({
+  return useMutation({
     mutationFn: async () => {
-      const res = await axiosPublic.post<{ success: boolean }>(
-        API_URL.LOGOUT_URL
-      );
+      const res = await axiosPublic.post(API_URL.LOGOUT_URL);
       return res.data;
     },
 
@@ -61,4 +57,3 @@ export const useLogout = () => {
     },
   });
 };
-

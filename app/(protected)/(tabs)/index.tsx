@@ -11,15 +11,14 @@ import { Link, useRouter } from "expo-router";
 import { scale, verticalScale } from "react-native-size-matters";
 import { useState } from "react";
 
+// /(protected)/(tabs)/index.tsx
+
 export default function Index() {
 
   const router = useRouter();
 
-    const windowWidth = useWindowDimensions().width
-    const windowHeight = useWindowDimensions().height
-
-
-
+  const windowWidth = useWindowDimensions().width
+  const windowHeight = useWindowDimensions().height
 
   return (
     <SafeAreaView style={{ width: windowWidth, height: windowHeight }}>

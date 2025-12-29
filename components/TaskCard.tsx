@@ -1,15 +1,13 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { StyleSheet } from 'react-native'
-import { scale } from 'react-native-size-matters'
-import { verticalScale } from 'react-native-size-matters'
+import { TaskCardTypes } from '@/app/(protected)/(tabs)/task'
 import { color } from '@/constants/colors'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import BadgePending from './BadgePending'
-import { TaskCardTypes } from '@/app/(root)/(tabs)/task'
-import BadgeComplete from './BadgeComplete'
-import BadgeProgress from './BadgeProgress'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { scale, verticalScale } from 'react-native-size-matters'
 import BadgeAccept from './BadgeAccept'
+import BadgeComplete from './BadgeComplete'
+import BadgePending from './BadgePending'
+import BadgeProgress from './BadgeProgress'
 
 type taskCardProps = {
     detailCard: TaskCardTypes;
