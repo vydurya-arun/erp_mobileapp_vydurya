@@ -7,7 +7,8 @@ type APIURL={
     LOGIN_URL:string,
     LOGOUT_URL:string,
     PROFILE_URL:string,
-    ATTENDANCE_URL:string   
+    ATTENDANCE_URL:string,
+    RECENTACTIVITY_URL:string   
 }
 
 export const API_URL:APIURL = {
@@ -19,5 +20,6 @@ export const API_URL:APIURL = {
     LOGOUT_URL :"/auth/logout",
     PROFILE_URL :"/auth/me",
     ATTENDANCE_URL :"/attendance/todayMob",
+    RECENTACTIVITY_URL :"/attendance/todayRecent",
 
 };

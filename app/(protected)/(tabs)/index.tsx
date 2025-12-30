@@ -11,6 +11,7 @@ import { Link, useRouter } from "expo-router";
 import { scale, verticalScale } from "react-native-size-matters";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthProvider";
+import { useGetRecentActivityController } from "@/controller/employeeController";
 
 // /(protected)/(tabs)/index.tsx
 
@@ -20,6 +21,7 @@ export default function Index() {
   const {auth} = useAuth();
   const windowWidth = useWindowDimensions().width
   const windowHeight = useWindowDimensions().height
+  const { data: attendance } = useGetRecentActivityController();
 
   return (
     <SafeAreaView style={{ width: windowWidth, height: windowHeight }}>
@@ -118,7 +120,10 @@ export default function Index() {
             <Link style={{color:color.primary}} href="/leave/dailyactivity">View More</Link>
           </View>
 
-          <RecentCards />
+          <RecentCards 
+            filter={"All"} 
+            data={attendance?.sessions || []}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

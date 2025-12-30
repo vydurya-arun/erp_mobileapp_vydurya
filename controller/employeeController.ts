@@ -114,3 +114,20 @@ export const useGetAttendanceController = () => {
     retry: 1, 
   });
 };
+
+export const useGetRecentActivityController = () => {
+  return useQuery({
+    queryKey: ["recentActivity"],
+    queryFn: async () => {
+      try {
+        const res = await axiosPrivate.get<AttendanceResponse>(API_URL.RECENTACTIVITY_URL);
+        return res.data?.attendance; 
+      } catch (err:any) {
+        const message = err.response?.data?.error || err.response?.data?.message || "Failed to fetch Attendance";
+        throw new Error(message); 
+      }
+    },
+    initialData: null,
+    retry: 1, 
+  });
+};
