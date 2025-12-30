@@ -10,13 +10,14 @@ import RecentCards from "@/components/RecentCards";
 import { Link, useRouter } from "expo-router";
 import { scale, verticalScale } from "react-native-size-matters";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthProvider";
 
 // /(protected)/(tabs)/index.tsx
 
 export default function Index() {
 
   const router = useRouter();
-
+  const {auth} = useAuth();
   const windowWidth = useWindowDimensions().width
   const windowHeight = useWindowDimensions().height
 
@@ -39,7 +40,7 @@ export default function Index() {
 
             <View style={styles.welcomeText}>
               <Text style={styles.welcome}>Welcome</Text>
-              <Text style={styles.username}>Arun Kumar</Text>
+              <Text style={styles.username}>{auth?.name}</Text>
             </View>
           </View>
 

@@ -1,11 +1,11 @@
-import { Employee } from "@/app/(protected)/meeting/meetingList";
+
 import { API_URL } from "@/constants/apiUrlConstants";
 import { axiosPrivate } from "@/hooks/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface EmployeesResponse {
   success: boolean;
-  employees: Employee[];
+  employees: any[];
   total: number;
   page: number;
   totalPages: number;

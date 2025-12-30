@@ -1,8 +1,8 @@
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { SplashScreen, useRouter } from "expo-router";
-import { LoginCredentials, LoginResponse, useLogin, useLogout } from "@/controller/authController";
+import { LoginCredentials, LoginResponse, useLogin } from "@/controller/authController";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "expo-router";
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
 
 
 
@@ -18,12 +18,12 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 const storeAuthKey = "auth";
 const storeAuthKeyData = "authData";
+const storeAuthKeyToken = "authToken";
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const loginMutation = useLogin();
-  const logoutMutation = useLogout();
   const [auth, setAuth] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isReady, setIsReady] = useState(false);
@@ -40,8 +40,17 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const storeAuthData = async(data:any)=>{
     try {
       const jsonValue = JSON.stringify(data);
-      console.log("Saving Data",jsonValue)
+   
       await AsyncStorage.setItem(storeAuthKeyData, jsonValue);
+    } catch (error) {
+      console.log("Saving Error",error)
+    }
+  }
+  
+  const storeAuthToken = async(token:string)=>{
+    try {
+      console.log("Saving Token", token)
+      await AsyncStorage.setItem(storeAuthKeyToken, token);
     } catch (error) {
       console.log("Saving Error",error)
     }
@@ -50,10 +59,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const logIn = async (credentials: LoginCredentials) => {
     
     const data = await loginMutation.mutateAsync(credentials);
-    const tokens = data.data?.token;
+    const tokens = data.token;
     if(tokens){
       setIsLoggedIn(true);
       storeAuthState({isLoggedIn:!!tokens});
+      storeAuthToken(tokens);
       setAuth(data?.data);
       storeAuthData(data?.data);
     }
@@ -63,10 +73,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const logOut = async () => {
     try {
-      await logoutMutation.mutateAsync();
+     
       setIsLoggedIn(false);
       storeAuthState({isLoggedIn:false});
       storeAuthData({});
+      storeAuthToken("");
     }catch(error){
       console.log("Logout Error",error)
     }
@@ -91,6 +102,22 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     };
 
     getAuthFormStorage();
+  },[])
+
+  useEffect(()=>{
+    const getAuthData = async()=>{
+      try {
+        const value = await AsyncStorage.getItem(storeAuthKeyData);
+        if(value){
+          const parsedValue = JSON.parse(value);
+          setAuth(parsedValue);
+        }
+      } catch (error) {
+        console.log("Getting Error from Storage",error)
+      }
+    };
+
+    getAuthData();
   },[])
 
 

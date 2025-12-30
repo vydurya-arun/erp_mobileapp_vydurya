@@ -1,6 +1,6 @@
 import { API_URL } from "@/constants/apiUrlConstants";
-import { axiosPublic } from "@/hooks/axios";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { axiosPrivate, axiosPublic } from "@/hooks/axios";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export interface LoginCredentials {
   email: string;
@@ -9,13 +9,36 @@ export interface LoginCredentials {
 
 export interface LoginResponse {
   success: boolean;
+  token: string;
   data: {
     id: string;
     name: string;
     email: string;
     role: string;
-    type: string;
-    token: string;
+    employeeId: string;
+    phone: string;
+    status: string;
+  };
+  message: string;
+}
+
+export interface ProfileResponse {
+  success: boolean;
+  token: string;
+  profile: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    employeeId: string;
+    phone: string;
+    status: string;
+    joinDate: string;
+    address: string;
+    salary: number;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
   };
   message: string;
 }
@@ -42,18 +65,22 @@ export const useLogin = () => {
   });
 };
 
-// ✅ LOGOUT
-export const useLogout = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async () => {
-      const res = await axiosPublic.post(API_URL.LOGOUT_URL);
-      return res.data;
+export const useProfile = () => {
+  return useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      try {
+        const res = await axiosPrivate.get(API_URL.PROFILE_URL);
+        console.log(res.data, "res.data");
+        return res.data;
+      } catch (err: any) {
+        const message =
+          err.response?.data?.error ||
+          err.response?.data?.message ||
+          "Failed to fetch Employee";
+        throw new Error(message);
+      }
     },
-
-    onSuccess: () => {
-      queryClient.removeQueries({ queryKey: ["auth"] });
-    },
+    retry: 1,
   });
 };
