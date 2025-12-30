@@ -2,7 +2,7 @@ import { color } from "@/constants/colors";
 import { AttendanceSession } from "@/controller/employeeController";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 type ActivityType = 'Check In' | 'Check Out';
@@ -18,9 +18,10 @@ interface ActivityItem {
 interface RecentCardsProps {
   data?: AttendanceSession[];
   filter?: 'All' | 'On Time' | 'Late';
+  isLoading?: boolean;
 }
 
-const RecentCards: React.FC<RecentCardsProps> = ({ data = [], filter = 'All' }) => {
+const RecentCards: React.FC<RecentCardsProps> = ({ data = [], filter = 'All',isLoading }) => {
   // Flatten sessions into individual events
   const activityData: ActivityItem[] = data.flatMap((session) => {
     const events: ActivityItem[] = [];
@@ -51,6 +52,12 @@ const RecentCards: React.FC<RecentCardsProps> = ({ data = [], filter = 'All' }) 
     : activityData.filter(item => item.status === filter);
 
   return (
+
+    isLoading ? (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={color.primary} />
+      </View>
+    ) : (
     <View style={styles.mainCard}>
       {filteredData.map((item) => (
         <View key={item.id} style={styles.contain}>
@@ -79,7 +86,7 @@ const RecentCards: React.FC<RecentCardsProps> = ({ data = [], filter = 'All' }) 
           <Text style={{ color: color.textColourLight }}>No activities found.</Text>
         </View>
       )}
-    </View>
+    </View>)
   );
 };
 
@@ -172,5 +179,10 @@ const styles = StyleSheet.create({
     padding: moderateScale(30),
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

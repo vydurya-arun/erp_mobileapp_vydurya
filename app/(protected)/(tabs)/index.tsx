@@ -62,7 +62,7 @@ export default function Index() {
             name="clock"
             colour="#22B3FF"
             title="today hours"
-            count="6h 33m"
+            count={`${attendance?.working_hours} h`}
             bgColor="#EAF7FF"
           />
           <Cardsinfo

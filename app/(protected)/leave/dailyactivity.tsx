@@ -11,7 +11,7 @@ type FilterType = 'All' | 'On Time' | 'Late';
 
 const dailyactivity = () => {
     const [filter, setFilter] = useState<FilterType>('All');
-    const { data: attendance } = useGetAttendanceController();
+    const { data: attendance, isLoading } = useGetAttendanceController();
 
     const filters: { label: FilterType, color: string, bg: string }[] = [
         { label: 'All', color: color.buttonColor, bg: '#E0F2FE' },
@@ -41,6 +41,7 @@ const dailyactivity = () => {
                     <RecentCards 
                       filter={filter} 
                       data={attendance?.sessions || []}
+                      isLoading={isLoading }
                     />
                 </View>
             </ScrollView>

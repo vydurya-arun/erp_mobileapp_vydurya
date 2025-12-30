@@ -91,6 +91,7 @@ export interface Attendance {
   employee: string;
   date: string;
   sessions: AttendanceSession[];
+  working_hours: number;
 }
 
 export interface AttendanceResponse {
