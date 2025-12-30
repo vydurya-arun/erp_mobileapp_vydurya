@@ -1,8 +1,9 @@
 import { color } from "@/constants/colors";
+import { AttendanceSession } from "@/controller/employeeController";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 type ActivityType = 'Check In' | 'Check Out';
 type StatusType = 'On Time' | 'Late';
@@ -14,18 +15,37 @@ interface ActivityItem {
   status: StatusType;
 }
 
-const activityData: ActivityItem[] = [
-  { id: '1', type: 'Check In', time: '09:30 AM', status: 'On Time' },
-  { id: '2', type: 'Check In', time: '09:30 AM', status: 'On Time' },
-  { id: '3', type: 'Check Out', time: '09:30 AM', status: 'Late' },
-  { id: '4', type: 'Check In', time: '09:30 AM', status: 'On Time' },
-];
-
 interface RecentCardsProps {
+  data?: AttendanceSession[];
   filter?: 'All' | 'On Time' | 'Late';
 }
 
-const RecentCards: React.FC<RecentCardsProps> = ({ filter = 'All' }) => {
+const RecentCards: React.FC<RecentCardsProps> = ({ data = [], filter = 'All' }) => {
+  // Flatten sessions into individual events
+  const activityData: ActivityItem[] = data.flatMap((session) => {
+    const events: ActivityItem[] = [];
+    
+    // Check In Event
+    events.push({
+      id: `${session._id}_in`,
+      type: 'Check In',
+      time: session.checkIn_ist,
+      status: 'On Time', // Defaulting to On Time, logic can be refined
+    });
+
+    // Check Out Event (if exists)
+    if (session.checkIn_ist && session.checkOut_ist) {
+      events.push({
+        id: `${session._id}_out`,
+        type: 'Check Out',
+        time: session.checkOut_ist,
+        status: 'On Time',
+      });
+    }
+
+    return events;
+  });
+
   const filteredData = filter === 'All'
     ? activityData
     : activityData.filter(item => item.status === filter);
@@ -36,20 +56,26 @@ const RecentCards: React.FC<RecentCardsProps> = ({ filter = 'All' }) => {
         <View key={item.id} style={styles.contain}>
           <View style={styles.subContain}>
             <View style={item.type === 'Check In' ? styles.logoContainer : styles.logoContainerLogout}>
-              <MaterialIcons name={item.type === 'Check In' ? "location-pin" : "login"} size={30} color={item.type === 'Check In' ? "#1FC155" : "#C45855"} />
+              <MaterialIcons 
+                name={item.type === 'Check In' ? "location-pin" : "logout"} 
+                size={24} 
+                color={item.type === 'Check In' ? "#1FC155" : "#C45855"} 
+              />
             </View>
             <View>
               <Text style={styles.subTitle}>{item.type}</Text>
-              <Text>{item.time}</Text>
+              <Text style={styles.timeText}>{item.time}</Text>
             </View>
           </View>
           <View style={item.status === 'On Time' ? styles.badge : styles.badgeLogout}>
-            <Text style={item.status === 'On Time' ? styles.badgeTitle : styles.badgeTitleLogOut}>{item.status}</Text>
+            <Text style={item.status === 'On Time' ? styles.badgeTitle : styles.badgeTitleLogOut}>
+              {item.status}
+            </Text>
           </View>
         </View>
       ))}
       {filteredData.length === 0 && (
-        <View style={{ padding: 20, alignItems: 'center' }}>
+        <View style={styles.noData}>
           <Text style={{ color: color.textColourLight }}>No activities found.</Text>
         </View>
       )}
@@ -134,6 +160,17 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontFamily: 'rubikMedium',
-    lineHeight: 12
+    fontSize: moderateScale(14),
+    color: color.textColour,
+  },
+  timeText: {
+    fontSize: moderateScale(12),
+    color: color.textColourLight,
+    fontFamily: 'rubikRegular',
+  },
+  noData: {
+    padding: moderateScale(30),
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });

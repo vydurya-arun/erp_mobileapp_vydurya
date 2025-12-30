@@ -1,6 +1,7 @@
 import BadgeV2 from '@/components/BadgeV2'
 import RecentCards from '@/components/RecentCards'
 import { color } from '@/constants/colors'
+import { useGetAttendanceController } from '@/controller/employeeController'
 import { Stack } from 'expo-router'
 import React, { useState } from 'react'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
@@ -10,6 +11,7 @@ type FilterType = 'All' | 'On Time' | 'Late';
 
 const dailyactivity = () => {
     const [filter, setFilter] = useState<FilterType>('All');
+    const { data: attendance } = useGetAttendanceController();
 
     const filters: { label: FilterType, color: string, bg: string }[] = [
         { label: 'All', color: color.buttonColor, bg: '#E0F2FE' },
@@ -36,7 +38,10 @@ const dailyactivity = () => {
                     ))}
                 </View>
                 <View style={styles.cardsContainer}>
-                    <RecentCards filter={filter} />
+                    <RecentCards 
+                      filter={filter} 
+                      data={attendance?.sessions || []}
+                    />
                 </View>
             </ScrollView>
         </>

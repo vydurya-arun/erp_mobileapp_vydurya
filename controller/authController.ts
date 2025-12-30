@@ -29,7 +29,6 @@ export interface ProfileResponse {
     id: string;
     name: string;
     email: string;
-    role: string;
     employeeId: string;
     phone: string;
     status: string;
@@ -70,9 +69,8 @@ export const useProfile = () => {
     queryKey: ["profile"],
     queryFn: async () => {
       try {
-        const res = await axiosPrivate.get(API_URL.PROFILE_URL);
-        console.log(res.data, "res.data");
-        return res.data;
+        const res = await axiosPrivate.get<ProfileResponse>(API_URL.PROFILE_URL);
+        return res.data?.profile;
       } catch (err: any) {
         const message =
           err.response?.data?.error ||

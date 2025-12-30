@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [auth, setAuth] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [token, setToken] = useState("");
  
   const storeAuthState = async(newState:{isLoggedIn:boolean})=>{
     try {
@@ -49,7 +50,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   
   const storeAuthToken = async(token:string)=>{
     try {
-      console.log("Saving Token", token)
       await AsyncStorage.setItem(storeAuthKeyToken, token);
     } catch (error) {
       console.log("Saving Error",error)

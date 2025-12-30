@@ -5,14 +5,14 @@ import { color } from "@/constants/colors";
 import { useCheckInController, useCheckOutController } from "@/controller/employeeController";
 
 const TimeCard = () => {
-  const [checkedIn, setCheckedIn] = useState(false);
+ const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [mounted, setMounted] = useState(false);
   const [attendance, setAttendance] = useState(null);
   const [lastSession, setLastSession] = useState(null);
 
     const CheckInMutation = useCheckInController();
-    const CheckOutMutation = useCheckInController();
+    const CheckOutMutation = useCheckOutController();
 
 
   useEffect(() => {
@@ -42,16 +42,10 @@ const TimeCard = () => {
   const handleCheckIn = async () => {
     try {
       const data = await CheckInMutation.mutateAsync();
-      if (data?.success && data?.attendance) {
-        const { attendance } = data;
-        setAttendance(attendance);
-        const sessions = attendance.sessions || [];
-        if (sessions.length > 0) {
-          const last = sessions[sessions.length - 1];
-          setLastSession(last);
-          setCheckedIn(!last.checkOut);
-        }
+      if (data?.success) {
+        setIsCheckedIn(true);
       }
+      console.log(data,"data-checkin");
     } catch (error) {
       console.error("Error during check-in:", error);
     } 
@@ -61,16 +55,10 @@ const TimeCard = () => {
     try {
       
       const data = await CheckOutMutation.mutateAsync();
-      if (data?.success && data?.attendance) {
-        const { attendance } = data;
-        setAttendance(attendance);
-        const sessions = attendance.sessions || [];
-        if (sessions.length > 0) {
-          const last = sessions[sessions.length - 1];
-          setLastSession(last);
-          setCheckedIn(!last.checkOut);
-        }
+      if (data?.success) {
+        setIsCheckedIn(false);
       }
+      console.log(data,"data-checkout");
     } catch (error) {
       console.error("Error during check-out:", error);
     }
@@ -81,9 +69,31 @@ const TimeCard = () => {
     <View style={styles.card}>
       <Text style={styles.dateText}>{mounted ? formatDate(currentTime) : ""}</Text>
       <Text style={styles.timeText}>{mounted ? formatTime(currentTime) : "--:--:--"}</Text>
-      <TouchableOpacity style={styles.button} disabled={CheckInMutation.isPending || CheckOutMutation.isPending} onPress={() => (checkedIn ? handleCheckOut() : handleCheckIn())}>
-        <Text style={styles.buttomText}>{checkedIn ? "Check Out" : "Check In"}</Text> 
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            isCheckedIn && styles.disabledButton
+          ]}
+          disabled={isCheckedIn}
+          onPress={handleCheckIn}
+        >
+          <Text style={styles.buttomText}>Check In</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.button2,
+            !isCheckedIn && styles.disabledButton
+          ]}
+          disabled={!isCheckedIn}
+          onPress={handleCheckOut}
+        >
+          <Text style={styles.buttomText}>Check Out</Text>
+        </TouchableOpacity>
+
+      </View>
+
     </View>
   );
 };
@@ -125,8 +135,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 7,
   },
+  button2: {
+    backgroundColor: color.primaryRed,
+    width: 150,
+    borderRadius: 24,
+    height: 40,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 7,
+  },
   buttomText: {
     fontFamily: "RubikSemiBold",
     color: "#ffffff",
   },
+  buttonContainer:{
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center'
+  },
+  disabledButton: {
+  opacity: 0.4,
+}
 });

@@ -76,3 +76,41 @@ export const useCheckOutController = () => {
     }
   });
 };
+
+export interface AttendanceSession {
+  _id: string;
+  checkIn: string;
+  checkOut?: string;
+  duration?: number;
+  checkIn_ist: string;
+  checkOut_ist?: string;
+}
+
+export interface Attendance {
+  _id: string;
+  employee: string;
+  date: string;
+  sessions: AttendanceSession[];
+}
+
+export interface AttendanceResponse {
+  success: boolean;
+  attendance: Attendance;
+}
+
+export const useGetAttendanceController = () => {
+  return useQuery({
+    queryKey: ["attendance"],
+    queryFn: async () => {
+      try {
+        const res = await axiosPrivate.get<AttendanceResponse>(API_URL.ATTENDANCE_URL);
+        return res.data?.attendance; 
+      } catch (err:any) {
+        const message = err.response?.data?.error || err.response?.data?.message || "Failed to fetch Attendance";
+        throw new Error(message); 
+      }
+    },
+    initialData: null,
+    retry: 1, 
+  });
+};

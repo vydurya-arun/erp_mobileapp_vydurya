@@ -17,7 +17,8 @@ export const axiosPrivate = axios.create({
 // Attach token automatically
 axiosPrivate.interceptors.request.use(
   async (config) => {
-    const token = await AsyncStorage.getItem("token");
+    const token = await AsyncStorage.getItem("authToken");
+    console.log("TokenAxois", token);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

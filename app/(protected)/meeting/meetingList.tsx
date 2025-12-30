@@ -22,7 +22,9 @@ const meetingList = () => {
           <Text>Daily Meetings</Text>
 
           <View style={{ display: "flex", gap: 8 }}>
-            {data?.profile.name}
+            <Text>{data?.name}</Text>
+            <Text>{data?.email}</Text>
+            <Text>{data?.joinDate}</Text>
           </View>
         </ScrollView>
       </View>
