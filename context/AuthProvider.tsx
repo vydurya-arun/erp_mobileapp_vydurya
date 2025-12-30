@@ -17,6 +17,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const storeAuthKey = "auth";
+const storeAuthKeyData = "authData";
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
@@ -36,14 +37,25 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       console.log("Saving Error",error)
     }
   }
- 
+  const storeAuthData = async(data:any)=>{
+    try {
+      const jsonValue = JSON.stringify(data);
+      console.log("Saving Data",jsonValue)
+      await AsyncStorage.setItem(storeAuthKeyData, jsonValue);
+    } catch (error) {
+      console.log("Saving Error",error)
+    }
+  }
+  
   const logIn = async (credentials: LoginCredentials) => {
     
     const data = await loginMutation.mutateAsync(credentials);
     const tokens = data.data?.token;
     if(tokens){
-      setAuth(data);
+      setIsLoggedIn(true);
       storeAuthState({isLoggedIn:!!tokens});
+      setAuth(data?.data);
+      storeAuthData(data?.data);
     }
 
     return data;
@@ -54,6 +66,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       await logoutMutation.mutateAsync();
       setIsLoggedIn(false);
       storeAuthState({isLoggedIn:false});
+      storeAuthData({});
     }catch(error){
       console.log("Logout Error",error)
     }

@@ -10,6 +10,8 @@ const _layout = () => {
   if(!isReady){
     return null;
   }
+  console.log("IsLoggedIn",isLoggedIn)
+  console.log("IsReady",isReady)
 
   if(!isLoggedIn){
     return<Redirect href="/login"/>
