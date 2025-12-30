@@ -11,6 +11,7 @@ import CardsProfile from '@/components/CardsProfile'
 import PersonCard from '@/components/PersonCard'
 import Header from '@/components/Header'
 import { useRouter } from 'expo-router'
+import { useAuth } from '@/context/AuthProvider'
 
 export type PersonalDataItem = {
   id: number;
@@ -51,6 +52,7 @@ const workData: PersonalDataItem[] =[
 const Profile = () => {
 
   const router = useRouter()
+  const { logOut } = useAuth();
 
   return (
     <SafeAreaView style={styles.mainScreen}>
@@ -92,7 +94,7 @@ const Profile = () => {
         </View>
         <PersonCard profile={workData}/>
 
-        <TouchableOpacity style={styles.logout} onPress={()=> router.push('/login')}>
+        <TouchableOpacity style={styles.logout} onPress={()=> logOut()}>
             <MaterialCommunityIcons name="logout" size={28} color="#C45855" />
             <Text style={{color:'#C45855',fontFamily:'rubikMedium', fontSize:15}}>Log Out</Text>
         </TouchableOpacity>
