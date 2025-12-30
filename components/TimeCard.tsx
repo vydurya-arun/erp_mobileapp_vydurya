@@ -2,17 +2,20 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { color } from "@/constants/colors";
-import { useCheckInController, useCheckOutController } from "@/controller/employeeController";
+import { useCheckInController, useCheckOutController, useGetRecentActivityController } from "@/controller/employeeController";
+import { useQueryClient } from "@tanstack/react-query";
 
 const TimeCard = () => {
- const [isCheckedIn, setIsCheckedIn] = useState(false);
+
   const [currentTime, setCurrentTime] = useState(new Date());
   const [mounted, setMounted] = useState(false);
-  const [attendance, setAttendance] = useState(null);
-  const [lastSession, setLastSession] = useState(null);
+  const CheckInMutation = useCheckInController();
+  const CheckOutMutation = useCheckOutController();
+  const { data: attendance, isLoading } = useGetRecentActivityController();
 
-    const CheckInMutation = useCheckInController();
-    const CheckOutMutation = useCheckOutController();
+  const latestSession = attendance?.sessions?.[0];
+  const isCheckedIn = !!latestSession && !latestSession.checkOut;
+ const queryClient = useQueryClient();
 
 
   useEffect(() => {
@@ -42,10 +45,8 @@ const TimeCard = () => {
   const handleCheckIn = async () => {
     try {
       const data = await CheckInMutation.mutateAsync();
-      if (data?.success) {
-        setIsCheckedIn(true);
-      }
       console.log(data,"data-checkin");
+      queryClient.invalidateQueries({ queryKey: ["recentActivity"] });
     } catch (error) {
       console.error("Error during check-in:", error);
     } 
@@ -55,10 +56,8 @@ const TimeCard = () => {
     try {
       
       const data = await CheckOutMutation.mutateAsync();
-      if (data?.success) {
-        setIsCheckedIn(false);
-      }
       console.log(data,"data-checkout");
+      queryClient.invalidateQueries({ queryKey: ["recentActivity"] });
     } catch (error) {
       console.error("Error during check-out:", error);
     }
